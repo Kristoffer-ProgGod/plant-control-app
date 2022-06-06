@@ -10,7 +10,7 @@
         <ListView x:Name="listView" x:FieldModifier="public">
             <ListView.ItemsSource>
                 <x:Array Type="{x:Type models:FlyoutPageItem}">
-                    <models:FlyoutPageItem Title="DataView" IconSource="DataView.png" TargetType="{x:Type local:DataView}" />
+                    <models:FlyoutPageItem Title="DataView" IconSource="GraphIcon.png" TargetType="{x:Type local:DataView}" />
                     <models:FlyoutPageItem Title="PairingView" IconSource="Pairing.png" TargetType="{x:Type local:PairingView}"/>
                 </x:Array>
             </ListView.ItemsSource>
