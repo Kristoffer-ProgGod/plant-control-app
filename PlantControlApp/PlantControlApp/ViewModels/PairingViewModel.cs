@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using ZXing.Mobile;
 
@@ -27,16 +28,23 @@ namespace PlantControlApp.ViewModels
         {
             scanCommand = new Command(async () =>
             {
-                
+                var status = await Permissions.RequestAsync<Permissions.Camera>();
 
                 MobileBarcodeScanner scanner = new MobileBarcodeScanner();
+                
+                scanner.UseCustomOverlay = false;
+                scanner.CameraUnsupportedMessage = "This Device's Camera is not supported.";
+                scanner.TopText = "Hold the camera up to the barcode\nAbout 6 inches away";
+                scanner.BottomText = "Wait for the barcode to automatically scan!";
 
-                var result = await scanner.Scan();
 
-                if (result != null)
-                    Console.WriteLine("Scanned Barcode: " + result.Text);
-                else
-                    Console.WriteLine("No result");
+                await scanner.Scan().ContinueWith(t =>
+                {
+                    if(t.Result != null)
+                    {
+                        Console.WriteLine("Scanned Barcode: " + t.Result.Text);
+                    }
+                });
             });
         }
     }
