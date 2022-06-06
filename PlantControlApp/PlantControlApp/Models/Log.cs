@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlantControl.Xamarin.Models
 {
     internal class Log
     {
-        int Id { get; set; }
-        int PairingId { get; set; }
-        DateTime Time { get; set; }
-        float Temperature { get; set; }
-        float Humidity { get; set; }
-        float Moisture { get; set; }
+        public string Id { get; set; }
+        public int PairingId { get; set; }
+        public DateTime Time { get; set; }
+        public float Temperature { get; set; }
+        public float Humidity { get; set; }
+        public float Moisture { get; set; }
     }
 }
