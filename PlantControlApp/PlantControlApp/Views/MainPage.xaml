@@ -7,7 +7,7 @@
             x:Class="PlantControlApp.Views.MainPage">
 
     <FlyoutPage.Flyout>
-        <views:FlyoutMenuPage x:Name="flyoutPage"/>
+        <views:FlyoutMenuPage x:Name="flyoutPage" BackgroundColor="White"/>
     </FlyoutPage.Flyout>
     <FlyoutPage.Detail>
         <NavigationPage>
@@ -16,6 +16,6 @@
             </x:Arguments>
         </NavigationPage>
     </FlyoutPage.Detail>
-    
+
 
 </FlyoutPage>
