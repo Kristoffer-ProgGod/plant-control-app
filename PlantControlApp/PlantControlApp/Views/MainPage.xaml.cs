@@ -1,6 +1,6 @@
-﻿using System;
+﻿using PlantControlApp.Models;
+using System;
 using Xamarin.Forms;
-using PlantControlApp.Models;
 
 namespace PlantControlApp.Views
 {
