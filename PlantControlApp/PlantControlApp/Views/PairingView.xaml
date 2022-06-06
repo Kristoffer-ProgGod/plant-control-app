@@ -4,10 +4,10 @@
              x:Class="PlantControlApp.Views.PairingView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Button x:Name="buttonScan" Text="Scan" WidthRequest="100" HeightRequest="40" Command="{Binding ScanCommand}"/>
+            <Label Text="Pairing View"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            <Button x:Name="buttonScan" Text="Create Pairing" WidthRequest="100" HeightRequest="40" Command="{Binding CreatePairingCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

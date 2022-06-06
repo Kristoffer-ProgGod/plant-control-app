@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlantControl.Xamarin.Models;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -8,44 +9,74 @@ namespace PlantControlApp.ViewModels
 {
     internal class PairingViewModel : Bindable
     {
-        private ICommand scanCommand;
+        private ICommand createPairingCommand;
 
-        public ICommand ScanCommand
+        public ICommand CreatePairingCommand
         {
-            get { return scanCommand; }
-            set { scanCommand = value; }
+            get { return createPairingCommand; }
+            set { createPairingCommand = value; }
         }
 
+        private string pairingName;
 
-        private string scanResult;
-
-        public string ScanResult
+        public string PairingName
         {
-            get { return scanResult; }
-            set { scanResult = value; OnPropertyChanged(); }
+            get { return pairingName; }
+            set { pairingName = value; }
         }
+
+        private Pairing pairing;
+
+        public Pairing Pairing
+        {
+            get { return pairing; }
+            set { pairing = value; }
+        }
+
         public PairingViewModel()
         {
-            scanCommand = new Command(async () =>
+            createPairingCommand = new Command(async () =>
+                {
+                    var plant = new Plant();
+                    plant.Id = await Scan("plant");
+                    var logger = new Logger();
+                    logger.Id = await Scan("logger");
+                    Pairing = new Pairing
+                    {
+                        Logger = logger,
+                        Plant = plant
+                    };
+                });
+        }
+
+        public async Task<string> Scan(string barcodeType)
+        {
+            string result = string.Empty;
+            var status = await Permissions.RequestAsync<Permissions.Camera>();
+
+            MobileBarcodeScanner scanner = new MobileBarcodeScanner();
+
+            scanner.UseCustomOverlay = false;
+            scanner.CameraUnsupportedMessage = "This Device's Camera is not supported.";
+            scanner.TopText = $"Hold the camera up to the {barcodeType} QRCode\nAbout 15 cm away";
+            scanner.BottomText = "Wait for the barcode to automatically scan";
+
+            try
             {
-                var status = await Permissions.RequestAsync<Permissions.Camera>();
-
-                MobileBarcodeScanner scanner = new MobileBarcodeScanner();
-                
-                scanner.UseCustomOverlay = false;
-                scanner.CameraUnsupportedMessage = "This Device's Camera is not supported.";
-                scanner.TopText = "Hold the camera up to the barcode\nAbout 6 inches away";
-                scanner.BottomText = "Wait for the barcode to automatically scan!";
-
-
                 await scanner.Scan().ContinueWith(t =>
                 {
-                    if(t.Result != null)
+                    if (t.Result != null)
                     {
-                        Console.WriteLine("Scanned Barcode: " + t.Result.Text);
+                        result = t.Result.Text;
                     }
                 });
-            });
+            }
+            catch
+            {
+                throw;
+            }
+            
+            return result;
         }
     }
 }
