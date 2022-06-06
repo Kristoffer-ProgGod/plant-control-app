@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PlantControl.Xamarin.Models
+﻿namespace PlantControl.Xamarin.Models
 {
     internal class Logger
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        bool IsPaired { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public bool IsPaired { get; set; }
     }
 }
