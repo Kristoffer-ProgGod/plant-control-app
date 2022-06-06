@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using PlantControlApp.Views;
 using Xamarin.Forms.Xaml;
 
 namespace PlantControlApp
