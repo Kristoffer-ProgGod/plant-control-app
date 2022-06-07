@@ -56,8 +56,4 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\plant-control-backend\PlantControl.Models\PlantControl.Models.csproj" />
-  </ItemGroup>
 </Project>
