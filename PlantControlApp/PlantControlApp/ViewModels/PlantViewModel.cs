@@ -1,4 +1,5 @@
-﻿using PlantControl.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using PlantControl.Models;
 using PlantControlApp.Views;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -27,12 +28,12 @@ namespace PlantControlApp.ViewModels
             set { switchViewCommand = value; }
         }
 
-        public PlantViewModel(NavigationPage navigationPage)
+        public PlantViewModel()
         {
-            _navigationPage = navigationPage;
-            SwitchViewCommand = new Command(async() =>
+            SwitchViewCommand = new Command(async () =>
             {
-                navigationPage.PushAsync(new CreatePlantView());
+                var navPage = App.Current.Services.GetService<NavigationPage>();
+                await navPage.PushAsync(new CreatePlantView());
             });
         }
 

@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using PlantControl.Models;
-using PlantControl.Xamarin.Models;
+﻿using PlantControl.Models;
+using System.Collections.Generic;
 using Log = PlantControl.Models.Log;
 using Logger = PlantControl.Models.Logger;
 
 namespace PlantControlApp.Services;
 
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalRService
 {
