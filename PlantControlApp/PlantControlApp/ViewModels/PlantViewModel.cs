@@ -1,4 +1,4 @@
-﻿using PlantControl.Xamarin.Models;
+﻿using PlantControl.Models;
 using PlantControlApp.Views;
 using System.Collections.Generic;
 using System.Windows.Input;
