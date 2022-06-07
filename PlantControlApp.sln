@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantControlApp.Android", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantControlApp", "PlantControlApp\PlantControlApp\PlantControlApp.csproj", "{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantControl.Models", "..\plant-control-backend\PlantControl.Models\PlantControl.Models.csproj", "{5C6D6A35-8EEA-4EB8-A447-F67857F85285}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,10 +25,6 @@ Global
 		{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{5C6D6A35-8EEA-4EB8-A447-F67857F85285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C6D6A35-8EEA-4EB8-A447-F67857F85285}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C6D6A35-8EEA-4EB8-A447-F67857F85285}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C6D6A35-8EEA-4EB8-A447-F67857F85285}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
