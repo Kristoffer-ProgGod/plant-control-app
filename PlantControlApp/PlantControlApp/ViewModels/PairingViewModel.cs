@@ -1,5 +1,4 @@
 ﻿using PlantControl.Models;
-using PlantControl.Xamarin.Models;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -76,7 +75,7 @@ namespace PlantControlApp.ViewModels
             {
                 throw;
             }
-            
+
             return result;
         }
     }
