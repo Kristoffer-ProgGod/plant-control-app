@@ -1,21 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<FlyoutPage xmlns="http://xamarin.com/schemas/2014/forms"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:views="clr-namespace:PlantControlApp.Views;assembly=PlantControlApp"
-            xmlns:local="clr-namespace:PlantControlApp;assembly=PlantControlApp"
-            xmlns:models="clr-namespace:PlantControl.Xamarin.Models"
-            x:Class="PlantControlApp.Views.MainPage">
-
-    <FlyoutPage.Flyout>
-        <views:FlyoutMenuPage x:Name="flyoutPage" BackgroundColor="White"/>
-    </FlyoutPage.Flyout>
-    <FlyoutPage.Detail>
-        <NavigationPage>
-            <x:Arguments>
-                <views:DataView/>
-            </x:Arguments>
-        </NavigationPage>
-    </FlyoutPage.Detail>
-
-
-</FlyoutPage>
+﻿<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PlantControlApp.Views"
+             xmlns:models="clr-namespace:PlantControlApp.Models"
+             x:Class="PlantControlApp.Views.MainPage"
+             Padding="0,40,0,0"
+             IconImageSource="hamburger.png"
+             Title="Personal Organiser">
+    <FlyoutItem Title="LookAtThisGraph" Icon="GraphIcon.png">
+        <ShellContent Route="DataView" ContentTemplate="{DataTemplate local:DataView}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Create Pairing" Icon="Pairing.png">
+        <ShellContent Route="PairingView" ContentTemplate="{DataTemplate local:PairingView}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Plants" Icon="PlantListIcon.png">
+        <ShellContent Route="PlantList" ContentTemplate="{DataTemplate local:PlantView}"/>
+    </FlyoutItem>
+    <TabBar>
+        <ShellContent Route="CreatePlantView" ContentTemplate="{DataTemplate local:CreatePlantView}"/>
+    </TabBar>
+</Shell>
+    
