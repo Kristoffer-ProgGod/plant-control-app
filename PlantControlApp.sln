@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantControlApp.Android", "PlantControlApp\PlantControlApp.Android\PlantControlApp.Android.csproj", "{36CA410E-07A2-44D8-AF47-7DB042676410}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantControlApp", "PlantControlApp\PlantControlApp\PlantControlApp.csproj", "{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantControlApp", "PlantControlApp\PlantControlApp\PlantControlApp.csproj", "{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantControl.Models", "plant-control-models\PlantControl.Models.csproj", "{AEED73C8-F2BA-4D9A-A1DB-F886848E5B5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28DBF285-7EB4-4239-9BD5-8BC71F2F54F4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AEED73C8-F2BA-4D9A-A1DB-F886848E5B5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEED73C8-F2BA-4D9A-A1DB-F886848E5B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEED73C8-F2BA-4D9A-A1DB-F886848E5B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEED73C8-F2BA-4D9A-A1DB-F886848E5B5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
