@@ -1,31 +1,18 @@
-﻿using PlantControlApp.Models;
-using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace PlantControlApp.Views
 {
-    public partial class MainPage : FlyoutPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MainPage : Xamarin.Forms.Shell
     {
         public MainPage()
         {
-            InitializeComponent();
-            flyoutPage.listView.ItemSelected += OnItemSelected;
-        }
-
-        /// <summary>
-        /// Controls navigation in the FlyoutPageMenu
-        /// </summary>
-        /// <param name="sender">The FlyoutPageMenu</param>
-        /// <param name="e">The FlyoutPageMenu item pressed</param>
-        void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var item = e.SelectedItem as FlyoutPageItem;
-            if (item != null)
-            {
-                Detail = new NavigationPage((Page)Activator.CreateInstance((Type)item.TargetType));
-                flyoutPage.listView.SelectedItem = null;
-                IsPresented = false;
-            }
+            InitializeComponents();
+            Routing.RegisterRoute(nameof(DataView), typeof(DataView));
+            Routing.RegisterRoute(nameof(PlantView), typeof(PlantView));
+            Routing.RegisterRoute(nameof(PairingView), typeof(PairingView));
+            Routing.RegisterRoute(nameof(CreatePlantView), typeof(CreatePlantView));
         }
     }
 }
