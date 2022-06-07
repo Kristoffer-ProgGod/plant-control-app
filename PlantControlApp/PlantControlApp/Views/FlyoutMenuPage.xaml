@@ -7,7 +7,7 @@
              IconImageSource="hamburger.png"
              Title="Personal Organiser">
     <StackLayout>
-        <ListView x:Name="listView" x:FieldModifier="public">
+        <ListView x:Name="listView" x:FieldModifier="public" BackgroundColor="White">
             <ListView.ItemsSource>
                 <x:Array Type="{x:Type models:FlyoutPageItem}">
                     <models:FlyoutPageItem Title="LookAtThisGraph" IconSource="GraphIcon.png" TargetType="{x:Type local:DataView}" />
@@ -18,13 +18,13 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="5,10">
+                        <Grid Padding="5,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="50" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Image Source="{Binding IconSource}" />
-                            <Label Grid.Column="1" Text="{Binding Title}" />
+                            <Image Source="{Binding IconSource}" Aspect="AspectFit"/>
+                            <Label Grid.Column="1" Text="{Binding Title}" TextColor="Black" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

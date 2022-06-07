@@ -1,11 +1,16 @@
 ﻿using PlantControl.Xamarin.Models;
+using PlantControlApp.Views;
 using System.Collections.Generic;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace PlantControlApp.ViewModels
 {
-    internal class PlantViewModel
+    internal class PlantViewModel : Bindable
     {
+
+        private NavigationPage _navigationPage;
+
         private List<Plant> plants;
 
         public List<Plant> Plants
@@ -14,19 +19,22 @@ namespace PlantControlApp.ViewModels
             set { plants = value; }
         }
 
-        private ICommand switchView;
+        private ICommand switchViewCommand;
 
-        public ICommand SwitchView
+        public ICommand SwitchViewCommand
         {
-            get { return switchView; }
-            set { switchView = value; }
+            get { return switchViewCommand; }
+            set { switchViewCommand = value; }
         }
 
-        public void CreatePlant()
+        public PlantViewModel(NavigationPage navigationPage)
         {
-
+            _navigationPage = navigationPage;
+            SwitchViewCommand = new Command(async() =>
+            {
+                navigationPage.PushAsync(new CreatePlantView());
+            });
         }
-
 
 
     }

@@ -7,7 +7,7 @@
             <Label Text="Plant List" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
             <ListView ItemsSource="{Binding Plants}"/>
 
-            <Button Text="CreatePlant" Command="{Binding SwitchToCreatePlantViewCommand}"></Button>
+            <Button Text="Create Plant" Command="{Binding SwitchViewCommand}"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
