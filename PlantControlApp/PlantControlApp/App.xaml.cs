@@ -1,4 +1,6 @@
 ﻿using PlantControlApp.Views;
+using System;
+using System.ComponentModel.Design;
 using Xamarin.Forms;
 
 namespace PlantControlApp
@@ -10,6 +12,7 @@ namespace PlantControlApp
             InitializeComponent();
 
             MainPage = new MainPage();
+
         }
 
         protected override void OnStart()

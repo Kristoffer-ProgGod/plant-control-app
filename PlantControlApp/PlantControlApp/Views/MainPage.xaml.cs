@@ -12,6 +12,11 @@ namespace PlantControlApp.Views
             flyoutPage.listView.ItemSelected += OnItemSelected;
         }
 
+        /// <summary>
+        /// Controls navigation in the FlyoutPageMenu
+        /// </summary>
+        /// <param name="sender">The FlyoutPageMenu</param>
+        /// <param name="e">The FlyoutPageMenu item pressed</param>
         void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as FlyoutPageItem;
