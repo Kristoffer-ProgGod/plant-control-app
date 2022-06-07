@@ -8,7 +8,7 @@ namespace PlantControlApp.Views
     {
         public MainPage()
         {
-            InitializeComponents();
+            InitializeComponent();
             Routing.RegisterRoute(nameof(DataView), typeof(DataView));
             Routing.RegisterRoute(nameof(PlantView), typeof(PlantView));
             Routing.RegisterRoute(nameof(PairingView), typeof(PairingView));
