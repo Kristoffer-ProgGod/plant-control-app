@@ -1,4 +1,4 @@
-﻿using PlantControl.Xamarin.Models;
+﻿using PlantControl.Models;
 using System.Collections.Generic;
 
 namespace PlantControlApp.ViewModels

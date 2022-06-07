@@ -1,4 +1,5 @@
-﻿using PlantControl.Xamarin.Models;
+﻿using PlantControl.Models;
+using PlantControl.Xamarin.Models;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
