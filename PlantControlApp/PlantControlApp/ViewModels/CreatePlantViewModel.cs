@@ -6,7 +6,9 @@ using System.Windows.Input;
 using PlantControl.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using System.Drawing;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace PlantControlApp.ViewModels
 {
@@ -48,7 +50,10 @@ namespace PlantControlApp.ViewModels
         {
             CreatePlantCommand = new Command(() =>
             {
-
+                var content = GetByteArray(Plant);
+                HttpClient httpClient = new HttpClient();
+                var response = httpClient.PostAsync("http://40.87.132.220:9092/plants", content).Result;
+                Plant plant = (Plant)DeserializeJson(response);
             });
 
             TakePhotoCommand = new Command(async() =>
@@ -60,6 +65,20 @@ namespace PlantControlApp.ViewModels
                     return photo;
                 });
             });
+        }
+
+        private ByteArrayContent GetByteArray(object serializeObject)
+        {
+            var objectContent = JsonConvert.SerializeObject(serializeObject);
+            var buffer = Encoding.UTF8.GetBytes(objectContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            return byteContent;
+        }
+
+        private object DeserializeJson(HttpResponseMessage responseMessage)
+        {
+            return JsonConvert.DeserializeObject(responseMessage.ToString());
         }
     }
 }
