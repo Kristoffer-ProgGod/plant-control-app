@@ -1,4 +1,4 @@
-﻿
+﻿using PlantControlApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,6 +10,7 @@ namespace PlantControlApp.Views
         public CreatePlantView()
         {
             InitializeComponent();
+            BindingContext = new CreatePlantViewModel();
         }
     }
 }

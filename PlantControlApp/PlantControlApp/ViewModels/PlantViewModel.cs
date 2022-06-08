@@ -30,9 +30,7 @@ namespace PlantControlApp.ViewModels
         {
             SwitchViewCommand = new Command(async () =>
             {
-                //var navPage = App.Current.Services.GetService<NavigationPage>();
-                //if (navPage != null)
-                //await navPage.PushAsync(new CreatePlantView
+                await Shell.Current.GoToAsync("////PlantView/CreatePlantView");
             });
         }
 
