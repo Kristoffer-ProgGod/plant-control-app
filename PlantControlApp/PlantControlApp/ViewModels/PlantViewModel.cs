@@ -1,39 +1,21 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using PlantControl.Models;
-using PlantControlApp.Views;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
+using PlantControl.Models;
 using Xamarin.Forms;
 
-namespace PlantControlApp.ViewModels
+namespace PlantControlApp.ViewModels;
+
+internal class PlantViewModel : Bindable
 {
-    internal class PlantViewModel : Bindable
+    public PlantViewModel()
     {
-
-        private List<Plant> plants;
-
-        public List<Plant> Plants
+        SwitchViewCommand = new Command(async () =>
         {
-            get { return plants; }
-            set { plants = value; }
-        }
-
-        private ICommand switchViewCommand;
-
-        public ICommand SwitchViewCommand
-        {
-            get { return switchViewCommand; }
-            set { switchViewCommand = value; }
-        }
-
-        public PlantViewModel()
-        {
-            SwitchViewCommand = new Command(async () =>
-            {
-                await Shell.Current.GoToAsync("////PlantView/CreatePlantView");
-            });
-        }
-
-
+            await Shell.Current.GoToAsync("////PlantView/CreatePlantView");
+        });
     }
+
+    public List<Plant> Plants { get; set; }
+
+    public ICommand SwitchViewCommand { get; set; }
 }

@@ -1,16 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:PlantControlApp.ViewModels" x:DataType="viewmodels:CreatePlantViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:PlantControlApp.ViewModels"
+             x:DataType="viewmodels:CreatePlantViewModel"
              x:Class="PlantControlApp.Views.CreatePlantView">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Add A Plant"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Entry Text="{Binding Plant.Name, Mode=TwoWay}" Placeholder="Plant Name"/>
-            <Image Source="{Binding Image.Source}"/>
-            <Button Text="Take A Photo" Command="{Binding TakePhotoCommand}"/>
-            <Button Text="Create Plant" Command="{Binding CreatePlantCommand}"/>
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand" />
+            
+            <Entry Text="{Binding Plant.Name, Mode=TwoWay}" Placeholder="Plant Name" />
+            
+            <Image Source="{Binding Image.Source}" />
+            
+            <Button Text="Take A Photo" Command="{Binding TakePhotoCommand}" />
+            <Button Text="Create Plant" Command="{Binding CreatePlantCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
