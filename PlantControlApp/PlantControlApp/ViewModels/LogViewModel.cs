@@ -1,15 +1,9 @@
-﻿using PlantControl.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using PlantControl.Models;
 
-namespace PlantControlApp.ViewModels
+namespace PlantControlApp.ViewModels;
+
+public class LogViewModel : Bindable
 {
-    internal class LogViewModel : Bindable
-    {
-        List<Log> Logs { get; set; }
-
-        public LogViewModel()
-        {
-
-        }
-    }
+    private List<Log> Logs { get; set; }
 }

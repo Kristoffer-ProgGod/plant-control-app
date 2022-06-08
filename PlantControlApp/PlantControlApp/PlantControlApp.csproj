@@ -1,60 +1,61 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <LangVersion>latestmajor</LangVersion>
-    <Nullable>warnings</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>warnings</Nullable>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DebugType>portable</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
-    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
-    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401"/>
+        <PackageReference Include="Xamarin.Essentials" Version="1.7.3"/>
+        <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1"/>
+        <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\plant-control-models\PlantControl.Models.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\plant-control-models\PlantControl.Models.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Views\PlantView.xaml.cs">
-      <DependentUpon>PlantView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\DataView.xaml.cs">
-      <DependentUpon>DataView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\PairingView.xaml.cs">
-      <DependentUpon>PairingView.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Views\PlantView.xaml.cs">
+            <DependentUpon>PlantView.xaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\DataView.xaml.cs">
+            <DependentUpon>DataView.xaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\PairingView.xaml.cs">
+            <DependentUpon>PairingView.xaml</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Views\CreatePlantView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\PlantView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\DataView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\PairingView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Update="Views\CreatePlantView.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\PlantView.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\DataView.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\PairingView.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Views\CreatePlantView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="Views\CreatePlantView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </None>
+    </ItemGroup>
 </Project>

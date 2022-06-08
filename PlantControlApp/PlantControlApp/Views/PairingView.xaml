@@ -1,13 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:models="clr-namespace:PlantControlApp.ViewModels" x:DataType="models:PairingViewModel"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:PlantControlApp.ViewModels" x:DataType="models:PairingViewModel"
              x:Class="PlantControlApp.Views.PairingView">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Pairing View"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-            <Button x:Name="buttonScan" Text="Create Pairing" WidthRequest="100" HeightRequest="40" Command="{Binding CreatePairingCommand}"/>
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+            <Button x:Name="buttonScan" Text="Create Pairing" WidthRequest="100" HeightRequest="40"
+                    Command="{Binding CreatePairingCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
