@@ -14,12 +14,12 @@ namespace PlantControlApp.ViewModels
 {
     public class CreatePlantViewModel : Bindable
     {
-        private Plant plant;
+        private Plant plant = new Plant();
 
         public Plant Plant
         {
             get { return plant; }
-            set { plant = value; }
+            set { plant = value; OnPropertyChanged(); }
         }
 
         private Image image = new Image();
@@ -50,6 +50,7 @@ namespace PlantControlApp.ViewModels
         {
             CreatePlantCommand = new Command(() =>
             {
+                
                 var content = GetByteArray(Plant);
                 HttpClient httpClient = new HttpClient();
                 var response = httpClient.PostAsync("http://40.87.132.220:9092/plants", content).Result;

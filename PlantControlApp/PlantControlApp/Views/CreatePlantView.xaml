@@ -7,7 +7,7 @@
             <Label Text="Add A Plant"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Entry Text="{Binding Plant.Name}" Placeholder="Plant Name"/>
+            <Entry Text="{Binding Plant.Name, Mode=TwoWay}" Placeholder="Plant Name"/>
             <Image Source="{Binding Image.Source}"/>
             <Button Text="Take A Photo" Command="{Binding TakePhotoCommand}"/>
             <Button Text="Create Plant" Command="{Binding CreatePlantCommand}"/>
