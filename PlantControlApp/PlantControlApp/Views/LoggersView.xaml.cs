@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using PlantControlApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,5 +15,6 @@ public partial class LoggersView : ContentPage
     public LoggersView()
     {
         InitializeComponent();
+        BindingContext = App.Current.Services.GetService<LoggersViewsModel>();
     }
 }

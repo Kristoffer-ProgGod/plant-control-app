@@ -17,18 +17,6 @@ public class DataViewModel: Bindable
         Loggers = new ObservableCollection<Logger>();
         _signalRService = signalRService;
         Loggers.Add(new Logger(){Id = "InitialLogger"});
-        InitSignalR();
     }
     
-    
-    private async Task InitSignalR()
-    {
-        Loggers.Clear();
-        await _signalRService.StartConnection();
-        
-        (await _signalRService.GetOnlineLoggers()).ForEach(logger => Loggers.Add(logger));
-
-        _signalRService.OnNewLogger = logger => Loggers.Add(logger);
-        
-    }
 }
