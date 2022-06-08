@@ -3,12 +3,14 @@ using PlantControl.Models;
 using PlantControlApp.Views;
 using System.Collections.Generic;
 using System.Windows.Input;
+using PlantControlApp.Services;
 using Xamarin.Forms;
 
 namespace PlantControlApp.ViewModels
 {
     internal class PlantViewModel : Bindable
     {
+        private readonly SignalRService _signalRService;
 
         private List<Plant> plants;
 
@@ -26,8 +28,9 @@ namespace PlantControlApp.ViewModels
             set { switchViewCommand = value; }
         }
 
-        public PlantViewModel()
+        public PlantViewModel(SignalRService signalRService)
         {
+            _signalRService = signalRService;
             SwitchViewCommand = new Command(async () =>
             {
                 //var navPage = App.Current.Services.GetService<NavigationPage>();

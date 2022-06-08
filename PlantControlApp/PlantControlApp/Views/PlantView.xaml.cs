@@ -10,7 +10,7 @@ namespace PlantControlApp.Views
         public PlantView()
         {
             InitializeComponent();
-            BindingContext = new PlantViewModel();
+            BindingContext = App.Current.Services.GetService<PlantViewModel>();
         }
     }
 }

@@ -14,7 +14,10 @@
     </FlyoutItem>
     <FlyoutItem Title="Plants" Icon="PlantListIcon.png">
         <ShellContent Route="PlantList" ContentTemplate="{DataTemplate local:PlantView}"/>
-    </FlyoutItem>
+    </FlyoutItem>   
+    <FlyoutItem Title="Loggers" Icon="PlantListIcon.png">
+        <ShellContent Route="LoggersView" ContentTemplate="{DataTemplate local:LoggersView}"/>
+    </FlyoutItem> 
     <TabBar>
         <ShellContent Route="CreatePlantView" ContentTemplate="{DataTemplate local:CreatePlantView}"/>
     </TabBar>
