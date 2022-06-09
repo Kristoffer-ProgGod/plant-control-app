@@ -10,6 +10,6 @@ public partial class LoggersView : ContentPage
     public LoggersView()
     {
         InitializeComponent();
-        BindingContext = App.Current.Services.GetService<LoggersViewsModel>();
+        BindingContext = App.Current.Services.GetService<LoggersViewModel>();
     }
 }

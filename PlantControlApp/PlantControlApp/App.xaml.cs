@@ -34,6 +34,8 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         var httpClient = new HttpClient();
+        httpClient.Timeout = TimeSpan.FromSeconds(10);
+        
         httpClient.BaseAddress = new Uri("http://40.87.132.220:9092/");
 
         services.AddSingleton(httpClient);
@@ -44,7 +46,8 @@ public partial class App : Application
         services.AddTransient<CreatePlantViewModel>();
         services.AddTransient<PlantViewModel>();
         services.AddTransient<DataViewModel>();
-        services.AddTransient<LoggersViewsModel>();
+        services.AddTransient<LoggersViewModel>();
+        services.AddTransient<LoggerConfigViewModel>();
 
         return services.BuildServiceProvider();
     }

@@ -13,5 +13,6 @@ public partial class MainPage : Shell
         Routing.RegisterRoute(nameof(PlantView), typeof(PlantView));
         Routing.RegisterRoute(nameof(PairingView), typeof(PairingView));
         Routing.RegisterRoute(nameof(CreatePlantView), typeof(CreatePlantView));
+        Routing.RegisterRoute(nameof(LoggerConfigView), typeof(LoggerConfigView));
     }
 }
