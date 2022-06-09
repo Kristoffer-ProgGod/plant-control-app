@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using PlantControlApp.Services;
 using PlantControlApp.ViewModels;
@@ -32,6 +33,10 @@ public partial class App : Application
     {
         var services = new ServiceCollection();
 
+        var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://40.87.132.220:9092/");
+
+        services.AddSingleton(httpClient);
         services.AddSingleton<SignalRService>();
         services.AddSingleton<ScannerService>();
 

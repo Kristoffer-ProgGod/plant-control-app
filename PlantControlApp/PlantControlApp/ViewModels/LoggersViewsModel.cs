@@ -12,10 +12,12 @@ namespace PlantControlApp.ViewModels;
 public class LoggersViewsModel
 {
     private readonly SignalRService _signalRService;
+    private readonly HttpClient _httpClient;
 
-    public LoggersViewsModel(SignalRService signalRService)
+    public LoggersViewsModel(SignalRService signalRService, HttpClient httpClient)
     {
         _signalRService = signalRService;
+        _httpClient = httpClient;
         InitSignalR();
     }
 
@@ -25,9 +27,7 @@ public class LoggersViewsModel
     public async void initOnlineLoggers()
     {
         OnlineLoggers.Clear();
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://40.87.132.220:9092");
-        var response = await httpClient.GetAsync("/loggers");
+        var response = await _httpClient.GetAsync("loggers");
         var loggers = await response.Content.ReadAsAsync<Logger[]>();
         foreach (var logger in loggers)
         {
