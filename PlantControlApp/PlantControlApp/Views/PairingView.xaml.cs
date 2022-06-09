@@ -10,6 +10,6 @@ public partial class PairingView : ContentPage
     public PairingView()
     {
         InitializeComponent();
-        BindingContext = new PairingViewModel();
+        BindingContext = App.Current.Services.GetService<PairingViewModel>();
     }
 }

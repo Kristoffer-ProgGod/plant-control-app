@@ -10,6 +10,6 @@ public partial class PlantView : ContentPage
     public PlantView()
     {
         InitializeComponent();
-        BindingContext = new PlantViewModel();
+        BindingContext = App.Current.Services.GetService<PlantViewModel>();
     }
 }

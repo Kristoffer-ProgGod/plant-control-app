@@ -11,6 +11,13 @@
     <FlyoutItem Title="Create Pairing" Icon="Pairing.png">
         <ShellContent Route="PairingView" ContentTemplate="{DataTemplate local:PairingView}" />
     </FlyoutItem>
+
+    <FlyoutItem Title="Loggers" Icon="PlantListIcon.png">
+        <ShellContent Route="LoggersView" ContentTemplate="{DataTemplate local:LoggersView}" />
+    </FlyoutItem>
+    <TabBar>
+        <ShellContent Route="CreatePlantView" ContentTemplate="{DataTemplate local:CreatePlantView}" />
+    </TabBar>
     <FlyoutItem Title="Plants" Icon="PlantListIcon.png">
         <ShellContent Route="PlantView" ContentTemplate="{DataTemplate local:PlantView}">
             <TabBar>

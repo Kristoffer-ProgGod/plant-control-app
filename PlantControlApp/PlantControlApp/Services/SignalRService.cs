@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 using PlantControl.Models;
 
 namespace PlantControlApp.Services;
@@ -11,21 +12,25 @@ public class SignalRService
     public SignalRService()
     {
         Connection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:5140/hubs/logger")
+            //.WithUrl("http://10.0.2.2:5140/hubs/logger")
+            .WithUrl("http://40.87.132.220:9093/hubs/logger")
+            .ConfigureLogging(builder => builder.AddDebug())
             .Build();
-
         Connection.On<LoggerConfig>("ReceiveConfig", config => OnReceiveConfig?.Invoke(config));
         Connection.On<Logger>("NewLogger", logger => OnNewLogger?.Invoke(logger));
         Connection.On<Log>("ReceiveLog", log => OnReceiveLog?.Invoke(log));
+        Connection.On<string>("RemoveLogger", loggerId => OnRemoveLogger?.Invoke(loggerId));
     }
 
     public Action<LoggerConfig> OnReceiveConfig { get; set; }
     public Action<Logger> OnNewLogger { get; set; }
     public Action<Log> OnReceiveLog { get; set; }
-    public HubConnection Connection { get; }
+    public Action<string> OnRemoveLogger { get; set; }
+    public HubConnection Connection { get; set; }
 
     public async Task StartConnection()
     {
+        if (Connection.State == HubConnectionState.Connected) return;
         await Connection.StartAsync();
         await Connection.InvokeAsync("Subscribe");
     }

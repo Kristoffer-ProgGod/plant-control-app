@@ -5,11 +5,11 @@ using Xamarin.Forms.Xaml;
 namespace PlantControlApp.Views;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class DataView : ContentPage
+public partial class LoggersView : ContentPage
 {
-    public DataView()
+    public LoggersView()
     {
         InitializeComponent();
-        BindingContext = App.Current.Services.GetService<DataViewModel>();
+        BindingContext = App.Current.Services.GetService<LoggersViewsModel>();
     }
 }
