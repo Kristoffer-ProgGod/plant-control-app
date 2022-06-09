@@ -2,16 +2,50 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="PlantControlApp.Views.LoggersView">
     <ContentPage.Content>
-        <StackLayout>
-            <ListView ItemsSource="{Binding Loggers}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Id}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+        
+        <Grid>
+            <xct:TabView
+                TabStripPlacement="Bottom"
+                TabStripBackgroundColor="Blue"
+                TabStripHeight="60"
+                TabIndicatorColor="Yellow"
+                TabContentBackgroundColor="White">
+
+                <xct:TabViewItem
+                    Icon="triangle.png"
+                    Text="Online"
+                    TextColor="LightGreen"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                    <StackLayout>
+                        <ListView ItemsSource="{Binding OnlineLoggers}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell Text="{Binding Id}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </xct:TabViewItem>
+
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="All"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                    <Grid>
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent2" />
+                    </Grid>
+                </xct:TabViewItem>
+            </xct:TabView>
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>
