@@ -41,6 +41,7 @@ public partial class App : Application
         services.AddSingleton<ScannerService>();
 
         services.AddTransient<PairingViewModel>();
+        services.AddTransient<CreatePlantViewModel>();
         services.AddTransient<PlantViewModel>();
         services.AddTransient<DataViewModel>();
         services.AddTransient<LoggersViewsModel>();
