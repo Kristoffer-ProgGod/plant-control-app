@@ -1,8 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using PlantControlApp.Views;
-using System;
+﻿using PlantControlApp.Views;
 using PlantControlApp.Services;
 using PlantControlApp.ViewModels;
+using System;
 using Xamarin.Forms;
 
 namespace PlantControlApp
