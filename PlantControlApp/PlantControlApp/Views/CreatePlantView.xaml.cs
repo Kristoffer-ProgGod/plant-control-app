@@ -2,15 +2,14 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PlantControlApp.Views
+namespace PlantControlApp.Views;
+
+[XamlCompilation(XamlCompilationOptions.Compile)]
+public partial class CreatePlantView : ContentPage
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreatePlantView : ContentPage
+    public CreatePlantView()
     {
-        public CreatePlantView()
-        {
-            InitializeComponent();
-            BindingContext = new CreatePlantViewModel();
-        }
+        InitializeComponent();
+        BindingContext = new CreatePlantViewModel();
     }
 }

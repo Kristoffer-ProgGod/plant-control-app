@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Net.Http;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Newtonsoft.Json;
 using PlantControl.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -41,13 +42,15 @@ namespace PlantControlApp.ViewModels
             }
         }
 
-        private ICommand createPlantCommand;
+    public Image Image { get; set; } = new();
+    public ICommand CreatePlantCommand { get; set; }
+    public ICommand TakePhotoCommand { get; set; }
 
-        public ICommand CreatePlantCommand
-        {
-            get { return createPlantCommand; }
-            set { createPlantCommand = value; }
-        }
+    public CreatePlantViewModel()
+    {
+        CreatePlantCommand = new Command( OnCreatePlant);
+        TakePhotoCommand = new Command( OnTakePhoto);
+    }
 
         private ICommand takePhotoCommand;
 
