@@ -6,10 +6,17 @@
              x:Class="PlantControlApp.Views.PairingView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Pairing View"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center" />
-            <Button x:Name="buttonScan" Text="Create Pairing" WidthRequest="100" HeightRequest="40"
+            <ListView ItemsSource="{Binding Pairings}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Id}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <Button Text="Create Pairing"
+                    WidthRequest="100"
+                    HeightRequest="40"
                     Command="{Binding CreatePairingCommand}" />
         </StackLayout>
     </ContentPage.Content>

@@ -33,6 +33,7 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddSingleton<SignalRService>();
+        services.AddSingleton<ScannerService>();
 
         services.AddTransient<PairingViewModel>();
         services.AddTransient<PlantViewModel>();
