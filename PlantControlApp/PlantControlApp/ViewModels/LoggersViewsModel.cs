@@ -9,16 +9,17 @@ namespace PlantControlApp.ViewModels;
 
 public class LoggersViewsModel
 {
-    public ObservableCollection<Logger> Loggers { get; }
     private readonly SignalRService _signalRService;
 
     public LoggersViewsModel(SignalRService signalRService)
     {
         Loggers = new ObservableCollection<Logger>();
         _signalRService = signalRService;
-        Loggers.Add(new Logger() {Id = "InitialLogger"});
+        Loggers.Add(new Logger {Id = "InitialLogger"});
         InitSignalR();
     }
+
+    public ObservableCollection<Logger> Loggers { get; }
 
 
     private async Task InitSignalR()

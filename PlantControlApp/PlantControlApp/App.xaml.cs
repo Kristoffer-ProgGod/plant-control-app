@@ -1,56 +1,56 @@
-﻿using PlantControlApp.Views;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using PlantControlApp.Services;
 using PlantControlApp.ViewModels;
-using System;
+using PlantControlApp.Views;
 using Xamarin.Forms;
 
-namespace PlantControlApp
+namespace PlantControlApp;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public App()
     {
-        public App()
-        {
-            InitializeComponent();
+        InitializeComponent();
 
 
-            Services = ConfigureServices();
-            MainPage = new MainPage();
-            
-        }
+        Services = ConfigureServices();
+        MainPage = new MainPage();
+    }
 
-        /// <summary>
-        /// Gets the current <see cref="App"/> instance in use
-        /// </summary>
-        public new static App Current => (App)Application.Current;
+    /// <summary>
+    ///     Gets the current <see cref="App" /> instance in use
+    /// </summary>
+    public new static App Current => (App) Application.Current;
 
-        /// <summary>
-        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
-        /// </summary>
-        public IServiceProvider Services { get; }
-        
-        private static IServiceProvider ConfigureServices()
-        {
-            var services = new ServiceCollection();
+    /// <summary>
+    ///     Gets the <see cref="IServiceProvider" /> instance to resolve application services.
+    /// </summary>
+    public IServiceProvider Services { get; }
 
-            services.AddSingleton<SignalRService>();
+    private static IServiceProvider ConfigureServices()
+    {
+        var services = new ServiceCollection();
 
-            services.AddTransient<PairingViewModel>();
-            services.AddTransient<PlantViewModel>();
-            services.AddTransient<DataViewModel>();
-            services.AddTransient<LoggersViewsModel>();
+        services.AddSingleton<SignalRService>();
 
-            return services.BuildServiceProvider();
-        }
-        protected override void OnStart()
-        {
-        }
+        services.AddTransient<PairingViewModel>();
+        services.AddTransient<PlantViewModel>();
+        services.AddTransient<DataViewModel>();
+        services.AddTransient<LoggersViewsModel>();
 
-        protected override void OnSleep()
-        {
-        }
+        return services.BuildServiceProvider();
+    }
 
-        protected override void OnResume()
-        {
-        }
+    protected override void OnStart()
+    {
+    }
+
+    protected override void OnSleep()
+    {
+    }
+
+    protected override void OnResume()
+    {
     }
 }

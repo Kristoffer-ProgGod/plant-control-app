@@ -1,24 +1,14 @@
-﻿using PlantControl.Models;
+﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
-using Log = PlantControl.Models.Log;
-using Logger = PlantControl.Models.Logger;
+using PlantControl.Models;
 
 namespace PlantControlApp.Services;
 
-using Microsoft.AspNetCore.SignalR.Client;
-using System;
-using System.Threading.Tasks;
-
 public class SignalRService
 {
-    public Action<LoggerConfig> OnReceiveConfig { get; set; }
-    public Action<Logger> OnNewLogger { get; set; }
-    public Action<Log> OnReceiveLog { get; set; }
-    public Action<string> OnRemoveLogger { get; set; }
-    public HubConnection Connection { get; set; }
-
-
     public SignalRService()
     {
         Connection = new HubConnectionBuilder()
@@ -26,11 +16,17 @@ public class SignalRService
             .WithUrl("http://40.87.132.220:9093/hubs/logger")
             .ConfigureLogging(builder => builder.AddDebug())
             .Build();
-        Connection.On<LoggerConfig>("ReceiveConfig", (config) => OnReceiveConfig?.Invoke(config));
-        Connection.On<Logger>("NewLogger", (logger) => OnNewLogger?.Invoke(logger));
-        Connection.On<Log>("ReceiveLog", (log) => OnReceiveLog?.Invoke(log));
-        Connection.On<string>("RemoveLogger", (loggerId) => OnRemoveLogger?.Invoke(loggerId));
+        Connection.On<LoggerConfig>("ReceiveConfig", config => OnReceiveConfig?.Invoke(config));
+        Connection.On<Logger>("NewLogger", logger => OnNewLogger?.Invoke(logger));
+        Connection.On<Log>("ReceiveLog", log => OnReceiveLog?.Invoke(log));
+        Connection.On<string>("RemoveLogger", loggerId => OnRemoveLogger?.Invoke(loggerId));
     }
+
+    public Action<LoggerConfig> OnReceiveConfig { get; set; }
+    public Action<Logger> OnNewLogger { get; set; }
+    public Action<Log> OnReceiveLog { get; set; }
+    public Action<string> OnRemoveLogger { get; set; }
+    public HubConnection Connection { get; set; }
 
     public async Task StartConnection()
     {
