@@ -9,25 +9,36 @@ using Xamarin.Forms;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.IO;
 
 namespace PlantControlApp.ViewModels
 {
     public class CreatePlantViewModel : Bindable
     {
-        private Plant plant = new Plant();
+        private string name;
 
-        public Plant Plant
+        public string Name
         {
-            get { return plant; }
-            set { plant = value; OnPropertyChanged(); }
+            get { return name; }
+            set 
+            { 
+                name = value; OnPropertyChanged(); 
+                ((Command)createPlantCommand).ChangeCanExecute(); 
+            }
         }
 
-        private Image image = new Image();
+        private ImageSource imageSource;
 
-        public Image Image
+        public ImageSource ImageSource
         {
-            get { return image; }
-            set { image = value; }
+            get { return imageSource; }
+            set 
+            { 
+                imageSource = value; 
+                OnPropertyChanged();
+                ((Command)createPlantCommand).ChangeCanExecute();
+            }
         }
 
         private ICommand createPlantCommand;
@@ -45,41 +56,50 @@ namespace PlantControlApp.ViewModels
             get { return takePhotoCommand; }
             set { takePhotoCommand = value; }
         }
+        private FileResult photoFile;
+        public FileResult PhotoFile 
+        { 
+            get { return photoFile; }
+            set { photoFile = value; }
+        }
 
         public CreatePlantViewModel()
         {
-            CreatePlantCommand = new Command(() =>
+            CreatePlantCommand = new Command(async () =>
             {
-                
-                var content = GetByteArray(Plant);
-                HttpClient httpClient = new HttpClient();
-                var response = httpClient.PostAsync("http://40.87.132.220:9092/plants", content).Result;
-                Plant plant = (Plant)DeserializeJson(response);
+                using var client = new HttpClient();
+                MultipartFormDataContent multiContent = new MultipartFormDataContent();
+                var plantContent = new StringContent(Name);
+                var imageContent = await FileResultToByteArrayContent(PhotoFile);
+                multiContent.Add(plantContent, "name");
+                multiContent.Add(imageContent, "image", "image");
+                var response = await client.PostAsync("http://40.87.132.220:9092/plants", multiContent);
+            }, () =>
+            {
+                return CreatePlantCanExecute();
             });
 
             TakePhotoCommand = new Command(async() =>
             {
-                var photoFile = await MediaPicker.CapturePhotoAsync();
+                photoFile = await MediaPicker.CapturePhotoAsync();
                 var photo = await photoFile.OpenReadAsync();
-                Image.Source = StreamImageSource.FromStream(() =>
+                ImageSource = StreamImageSource.FromStream(() =>
                 {
                     return photo;
                 });
             });
         }
-
-        private ByteArrayContent GetByteArray(object serializeObject)
+            private bool CreatePlantCanExecute()
+            {
+                return (PhotoFile != null && !String.IsNullOrEmpty(Name));
+            }
+        private async Task<ByteArrayContent> FileResultToByteArrayContent(FileResult fileResult)
         {
-            var objectContent = JsonConvert.SerializeObject(serializeObject);
-            var buffer = Encoding.UTF8.GetBytes(objectContent);
-            var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            return byteContent;
-        }
-
-        private object DeserializeJson(HttpResponseMessage responseMessage)
-        {
-            return JsonConvert.DeserializeObject(responseMessage.ToString());
+            var stream = new StreamContent(await photoFile.OpenReadAsync());
+            var memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            var byteArray = memoryStream.ToArray();
+            return new ByteArrayContent(byteArray);
         }
     }
 }
