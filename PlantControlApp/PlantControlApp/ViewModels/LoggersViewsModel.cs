@@ -1,5 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using PlantControl.Models;
 using PlantControlApp.Services;
@@ -13,24 +15,39 @@ public class LoggersViewsModel
 
     public LoggersViewsModel(SignalRService signalRService)
     {
-        Loggers = new ObservableCollection<Logger>();
         _signalRService = signalRService;
-        Loggers.Add(new Logger {Id = "InitialLogger"});
         InitSignalR();
     }
 
-    public ObservableCollection<Logger> Loggers { get; }
+    public ObservableCollection<Logger> OnlineLoggers { get; } = new();
+    public ObservableCollection<Logger> AllLoggers { get; } = new();
 
+    public async void initOnlineLoggers()
+    {
+        OnlineLoggers.Clear();
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("http://40.87.132.220:9092");
+        var response = await httpClient.GetAsync("/loggers");
+        var loggers = await response.Content.ReadAsAsync<Logger[]>();
+        foreach (var logger in loggers)
+        {
+            AllLoggers.Add(logger);
+        }
+
+    }
 
     private async Task InitSignalR()
     {
-        Loggers.Clear();
+        OnlineLoggers.Clear();
+        OnlineLoggers.Add(new Logger {Id = "InitialLogger"});
+        OnlineLoggers.Add(new Logger {Id = "InitialLogger2"});
+        OnlineLoggers.Add(new Logger {Id = "InitialLogger3"});
         await _signalRService.StartConnection();
 
-        (await _signalRService.GetOnlineLoggers()).ForEach(logger => Loggers.Add(logger));
+        (await _signalRService.GetOnlineLoggers()).ForEach(logger => OnlineLoggers.Add(logger));
 
-        _signalRService.OnNewLogger = logger => Loggers.Add(logger);
+        _signalRService.OnNewLogger = logger => OnlineLoggers.Add(logger);
         _signalRService.OnRemoveLogger =
-            loggerId => Loggers.Remove(Loggers.FirstOrDefault(logger => logger.Id == loggerId));
+            loggerId => OnlineLoggers.Remove(OnlineLoggers.FirstOrDefault(logger => logger.Id == loggerId));
     }
 }
