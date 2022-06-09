@@ -9,23 +9,24 @@ namespace PlantControlApp.ViewModels;
 
 public class CreatePlantViewModel : Bindable
 {
+    private readonly HttpClient _httpClient;
     private ImageSource _imageSource;
     private string _name;
     private FileResult _photoFile;
 
 
-    public CreatePlantViewModel()
+    public CreatePlantViewModel(HttpClient httpClient)
     {
+        _httpClient = httpClient;
         CreatePlantCommand = new Command(async () =>
         {
-            using var client = new HttpClient();
             var plantContent = new StringContent(Name);
             var imageContent = await FileResultToByteArrayContent();
             var multiContent = new MultipartFormDataContent();
             multiContent.Add(plantContent, "name");
             multiContent.Add(imageContent, "image", "image");
 
-            await client.PostAsync("http://40.87.132.220:9092/plants", multiContent);
+            await _httpClient.PostAsync("plants", multiContent);
         }, CreatePlantCanExecute);
 
         TakePhotoCommand = new Command(async () =>

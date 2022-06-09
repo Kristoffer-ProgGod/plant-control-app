@@ -6,13 +6,6 @@
              x:Class="PlantControlApp.Views.PairingView">
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Pairings}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Id}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
             
             <Button Text="Create Pairing"
                     WidthRequest="100"
