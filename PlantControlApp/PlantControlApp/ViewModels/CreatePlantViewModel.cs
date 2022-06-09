@@ -7,22 +7,40 @@ using Newtonsoft.Json;
 using PlantControl.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.IO;
 
-namespace PlantControlApp.ViewModels;
-
-public class CreatePlantViewModel : Bindable
+namespace PlantControlApp.ViewModels
 {
-    private Plant _plant = new();
-
-    public Plant Plant
+    public class CreatePlantViewModel : Bindable
     {
-        get => _plant;
-        set
+        private string name;
+
+        public string Name
         {
-            _plant = value;
-            OnPropertyChanged();
+            get { return name; }
+            set 
+            { 
+                name = value; OnPropertyChanged(); 
+                ((Command)createPlantCommand).ChangeCanExecute(); 
+            }
         }
-    }
+
+        private ImageSource imageSource;
+
+        public ImageSource ImageSource
+        {
+            get { return imageSource; }
+            set 
+            { 
+                imageSource = value; 
+                OnPropertyChanged();
+                ((Command)createPlantCommand).ChangeCanExecute();
+            }
+        }
 
     public Image Image { get; set; } = new();
     public ICommand CreatePlantCommand { get; set; }
@@ -34,17 +52,57 @@ public class CreatePlantViewModel : Bindable
         TakePhotoCommand = new Command( OnTakePhoto);
     }
 
-    private async void OnCreatePlant()
-    {
-        using var client = new HttpClient();
-        var content = new StringContent(JsonConvert.SerializeObject(new { name = Plant.Name }), Encoding.UTF8, MediaTypeNames.Application.Json);
-        var response = await client.PostAsync("http://40.87.132.220:9092/plants", content);
-    }
+        private ICommand takePhotoCommand;
 
-    private async void OnTakePhoto()
-    {
-        var photoFile = await MediaPicker.CapturePhotoAsync();
-        var photo = await photoFile.OpenReadAsync();
-        Image.Source = ImageSource.FromStream(() => photo);
+        public ICommand TakePhotoCommand
+        {
+            get { return takePhotoCommand; }
+            set { takePhotoCommand = value; }
+        }
+        private FileResult photoFile;
+        public FileResult PhotoFile 
+        { 
+            get { return photoFile; }
+            set { photoFile = value; }
+        }
+
+        public CreatePlantViewModel()
+        {
+            CreatePlantCommand = new Command(async () =>
+            {
+                using var client = new HttpClient();
+                MultipartFormDataContent multiContent = new MultipartFormDataContent();
+                var plantContent = new StringContent(Name);
+                var imageContent = await FileResultToByteArrayContent(PhotoFile);
+                multiContent.Add(plantContent, "name");
+                multiContent.Add(imageContent, "image", "image");
+                var response = await client.PostAsync("http://40.87.132.220:9092/plants", multiContent);
+            }, () =>
+            {
+                return CreatePlantCanExecute();
+            });
+
+            TakePhotoCommand = new Command(async() =>
+            {
+                photoFile = await MediaPicker.CapturePhotoAsync();
+                var photo = await photoFile.OpenReadAsync();
+                ImageSource = StreamImageSource.FromStream(() =>
+                {
+                    return photo;
+                });
+            });
+        }
+            private bool CreatePlantCanExecute()
+            {
+                return (PhotoFile != null && !String.IsNullOrEmpty(Name));
+            }
+        private async Task<ByteArrayContent> FileResultToByteArrayContent(FileResult fileResult)
+        {
+            var stream = new StreamContent(await photoFile.OpenReadAsync());
+            var memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            var byteArray = memoryStream.ToArray();
+            return new ByteArrayContent(byteArray);
+        }
     }
 }
