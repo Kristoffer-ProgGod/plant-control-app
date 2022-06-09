@@ -22,7 +22,8 @@ public class SignalRService
     public SignalRService()
     {
         Connection = new HubConnectionBuilder()
-            .WithUrl("http://10.0.2.2:5140/hubs/logger")
+            //.WithUrl("http://10.0.2.2:5140/hubs/logger")
+            .WithUrl("http://40.87.132.220:9093/hubs/logger")
             .ConfigureLogging(builder => builder.AddDebug())
             .Build();
         Connection.On<LoggerConfig>("ReceiveConfig", (config) => OnReceiveConfig?.Invoke(config));
