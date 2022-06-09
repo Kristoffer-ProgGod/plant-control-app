@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Windows.Input;
 using PlantControl.Models;
 using Xamarin.Forms;
-
 namespace PlantControlApp.ViewModels;
 
 internal class PlantViewModel : Bindable
@@ -18,4 +18,7 @@ internal class PlantViewModel : Bindable
     public List<Plant> Plants { get; set; }
 
     public ICommand SwitchViewCommand { get; set; }
+    private void GetPlants()
+    {
+    }
 }
