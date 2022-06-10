@@ -10,12 +10,15 @@
              Title="Pairings">
     <ContentPage.Behaviors>
         <xct:EventToCommandBehavior EventName="Appearing"
-                                    Command="{Binding AppearingCommand}" />
+                                    Command="{Binding RefreshCommand}" />
     </ContentPage.Behaviors>
     
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Pairings}">
+            <ListView ItemsSource="{Binding Pairings}"
+                      RefreshCommand="{Binding RefreshCommand}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      IsPullToRefreshEnabled="True">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="m:Pairing">
                         <TextCell Text="{Binding Id}" />
