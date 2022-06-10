@@ -6,12 +6,26 @@
              x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels:LoggerConfigViewModel">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding LoggerId}"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />           
-            <Label Text="{Binding Logger.Name}"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+            <TableView Intent="Settings">
+                <TableRoot>
+                    <TableSection Title="Logging">
+                        <SwitchCell Text="Active" On="{Binding LoggerConfig.Logging.Active}" />
+                        <EntryCell Label="Socket Url" Text="{Binding LoggerConfig}" />
+                    </TableSection>
+                    <TableSection Title="Air">
+                        <ViewCell>
+                            <Slider Maximum="3"></Slider>
+                        </ViewCell>
+                        <EntryCell></EntryCell>
+                        <EntryCell></EntryCell>
+                        <EntryCell></EntryCell>
+                    </TableSection>
+                    <TableSection Title="Soil">
+                        <EntryCell></EntryCell>
+                        <EntryCell></EntryCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
