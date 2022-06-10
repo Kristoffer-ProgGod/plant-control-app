@@ -32,9 +32,11 @@ public partial class App : Application
     private static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
-
-        var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("http://40.87.132.220:9092/");
+        var httpClient = new HttpClient
+        {
+            BaseAddress = new Uri("http://40.87.132.220:9092/"),
+            Timeout = TimeSpan.FromSeconds(10)
+        };
 
         services.AddSingleton(httpClient);
         services.AddSingleton<SignalRService>();
