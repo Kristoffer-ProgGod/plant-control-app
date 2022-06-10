@@ -21,7 +21,7 @@ public partial class LoggersViewModel
     private readonly HttpClient _httpClient;
 
 
-    [ObservableProperty]
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(NavigateLoggerConfigCommand))]
     private Logger _selectedLogger;
 
     public LoggersViewModel(SignalRService signalRService, HttpClient httpClient)
@@ -34,8 +34,10 @@ public partial class LoggersViewModel
 
     public ObservableCollection<Logger> OnlineLoggers { get; } = new();
     public ObservableCollection<Logger> AllLoggers { get; } = new();
+    
+    public bool CanNavigate => SelectedLogger != null;
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanNavigate))]
     public async void NavigateLoggerConfig()
     {
         await Shell.Current.GoToAsync($"{nameof(LoggerConfigView)}?loggerId={SelectedLogger._Id}");

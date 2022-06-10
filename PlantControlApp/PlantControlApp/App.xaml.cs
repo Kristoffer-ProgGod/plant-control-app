@@ -36,7 +36,7 @@ public partial class App : Application
         var httpClient = new HttpClient();
         httpClient.Timeout = TimeSpan.FromSeconds(10);
         
-        httpClient.BaseAddress = new Uri("http://40.87.132.220:9092/");
+        httpClient.BaseAddress = new Uri("https://plant-control-rest.herokuapp.com/");
 
         services.AddSingleton(httpClient);
         services.AddSingleton<SignalRService>();

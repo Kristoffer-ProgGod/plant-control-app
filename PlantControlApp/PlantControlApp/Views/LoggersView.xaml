@@ -7,7 +7,7 @@
              xmlns:models="clr-namespace:PlantControl.Models;assembly=PlantControl.Models"
              x:Class="PlantControlApp.Views.LoggersView" x:DataType="viewModels:LoggersViewModel">
     <ContentPage.Content>
-        
+
         <Grid>
             <xct:TabView
                 TabStripPlacement="Bottom"
@@ -23,19 +23,21 @@
                     TextColorSelected="LightGreen"
                     FontSize="12">
                     <StackLayout>
-                        <CollectionView 
-                        ItemsSource="{Binding OnlineLoggers}"
-                        SelectionMode="Single"
-                        SelectionChangedCommand="{Binding NavigateLoggerConfigCommand }"
-                        SelectedItem="{Binding SelectedLogger}"
-                        Margin="10"
-                        >
+                        <CollectionView
+                            ItemsSource="{Binding OnlineLoggers}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding NavigateLoggerConfigCommand }"
+                            SelectedItem="{Binding SelectedLogger}"
+                            Margin="10">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="models:Logger">
-                                    <Label Text="{Binding _Id}" FontSize="20"/>
+                                    <Label Text="{Binding _Id}" FontSize="20" />
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+                        <Button Margin="0" VerticalOptions="End" Text="Change Config"
+                                Command="{Binding NavigateLoggerConfigCommand}">
+                        </Button>
                     </StackLayout>
                 </xct:TabViewItem>
 
