@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 using System.Web;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PlantControl.Models;
 using PlantControlApp.Services;
 using Xamarin.Forms;
@@ -11,10 +13,9 @@ using Xamarin.Forms;
 namespace PlantControlApp.ViewModels;
 
 [ObservableObject]
-[QueryProperty("LoggerId","loggerId")]
+[QueryProperty("LoggerId", "loggerId")]
 public partial class LoggerConfigViewModel
 {
-    public string Type { get; set; }
     private readonly HttpClient _httpClient;
     private readonly SignalRService _signalRService;
 
@@ -23,6 +24,17 @@ public partial class LoggerConfigViewModel
     [ObservableProperty] private Logger _logger;
 
     [ObservableProperty] private string _loggerId;
+
+    [ObservableProperty] private float _dry;
+
+    [RelayCommand]
+    public void ConfigChanged()
+    {
+        OnPropertyChanged(nameof(LoggerConfig));
+        Console.Out.WriteLine("value is now" + LoggerConfig.Soil);
+        // Console.Out.WriteLine("value is now" + Dry);
+    }
+
 
     partial void OnLoggerIdChanged(string value)
     {
@@ -35,7 +47,6 @@ public partial class LoggerConfigViewModel
         _httpClient = httpClient;
         _signalRService = signalRService;
         _signalRService.OnReceiveConfig += RecieveConfig;
-
     }
 
     private async void GetLogger()
@@ -54,10 +65,16 @@ public partial class LoggerConfigViewModel
         {
             LoggerConfig = loggerConfig;
         }
-    } 
-    
+    }
+
     private async void GetLoggerConfig()
     {
         await _signalRService.GetConfig(LoggerId);
+    }
+
+    [RelayCommand]
+    public async void SaveConfig()
+    {
+        await this._signalRService.SetConfig(LoggerConfig);
     }
 }

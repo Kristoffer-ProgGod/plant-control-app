@@ -6,26 +6,96 @@
              x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels:LoggerConfigViewModel">
     <ContentPage.Content>
         <StackLayout>
-            <TableView Intent="Settings">
+            <TableView Intent="Settings" BackgroundColor="LightGray">
                 <TableRoot>
                     <TableSection Title="Logging">
                         <SwitchCell Text="Active" On="{Binding LoggerConfig.Logging.Active}" />
-                        <EntryCell Label="Socket Url" Text="{Binding LoggerConfig}" />
+                        <EntryCell Label="Socket Url" Text="{Binding LoggerConfig.Logging.SocketUrl}" />
+                        <EntryCell Label="Rest Url" Text="{Binding LoggerConfig.Logging.RestUrl}" />
+
                     </TableSection>
                     <TableSection Title="Air">
                         <ViewCell>
-                            <Slider Maximum="3"></Slider>
+                            <StackLayout Orientation="Horizontal" Margin="10">
+                                <Label WidthRequest="150" Text="Minimum Humidity:" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding LoggerConfig.Air.MinTemp}"></Label>
+                                <Slider
+                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
+                                    WidthRequest="200"
+                                    Value="{Binding LoggerConfig.Air.MinTemp}"
+                                    Maximum="100">
+                                </Slider>
+                            </StackLayout>
                         </ViewCell>
-                        <EntryCell></EntryCell>
-                        <EntryCell></EntryCell>
-                        <EntryCell></EntryCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Margin="10">
+                                <Label WidthRequest="150" Text="Minimum Temp:" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding LoggerConfig.Air.MaxTemp}"></Label>
+                                <Slider
+                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
+                                    WidthRequest="200"
+                                    Value="{Binding LoggerConfig.Air.MaxTemp}"
+                                    Maximum="100">
+                                </Slider>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Margin="10">
+                                <Label WidthRequest="150" Text="Maximum Humidity:" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding LoggerConfig.Air.MaxHumid}"></Label>
+                                <Slider
+                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
+                                    WidthRequest="200"
+                                    Value="{Binding LoggerConfig.Air.MaxHumid}"
+                                    Maximum="100">
+                                </Slider>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Margin="10">
+                                <Label WidthRequest="150" Text="Minimum Humidity:" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding LoggerConfig.Air.MinHumid}"></Label>
+                                <Slider
+                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
+                                    WidthRequest="200"
+                                    Value="{Binding LoggerConfig.Air.MinHumid}"
+                                    Maximum="100">
+                                </Slider>
+                            </StackLayout>
+                        </ViewCell>
                     </TableSection>
                     <TableSection Title="Soil">
-                        <EntryCell></EntryCell>
-                        <EntryCell></EntryCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Margin="10">
+                                <Label WidthRequest="100" Text="Moist Value:" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding LoggerConfig.Soil.Moist}"></Label>
+                                <Slider
+                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
+                                    WidthRequest="200"
+                                    Value="{Binding LoggerConfig.Soil.Moist}"
+                                    Maximum="3.3">
+                                </Slider>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Margin="10">
+                                <Label WidthRequest="100" Text="Dry Value:" VerticalOptions="Center"></Label>
+                                <Label Text="{Binding LoggerConfig.Soil.Dry}"></Label>
+                                <Slider
+                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
+                                    WidthRequest="200"
+                                    Value="{Binding LoggerConfig.Soil.Dry}"
+                                    Maximum="3.3">
+                                </Slider>
+                            </StackLayout>
+                        </ViewCell>
                     </TableSection>
                 </TableRoot>
             </TableView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <Button Text="Save Config" Command="{Binding SaveConfigCommand}"></Button>
+                <Button Text="Cancel"></Button>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
