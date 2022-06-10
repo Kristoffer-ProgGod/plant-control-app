@@ -1,28 +1,29 @@
 ﻿<Shell xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:PlantControlApp.Views"
+       xmlns:v="clr-namespace:PlantControlApp.Views"
        x:Class="PlantControlApp.Views.MainPage"
-       Padding="0,40,0,0"
-       IconImageSource="hamburger.png"
-       Title="Personal Organiser">
-    <FlyoutItem Title="LookAtThisGraph" Icon="GraphIcon.png">
-        <ShellContent Route="DataView" ContentTemplate="{DataTemplate local:DataView}" />
+       IconImageSource="hamburger.png">
+    <FlyoutItem Title="Statistics"
+                Icon="GraphIcon.png">
+        <ShellContent Route="DataView"
+                      ContentTemplate="{DataTemplate v:DataView}" />
     </FlyoutItem>
-    <FlyoutItem Title="Create Pairing" Icon="Pairing.png">
-        <ShellContent Route="PairingView" ContentTemplate="{DataTemplate local:PairingView}" />
+    
+    <FlyoutItem Title="Pairings"
+                Icon="Pairing.png">
+        <ShellContent Route="PairingView"
+                      ContentTemplate="{DataTemplate v:PairingView}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Loggers" Icon="PlantListIcon.png">
-        <ShellContent Route="LoggersView" ContentTemplate="{DataTemplate local:LoggersView}" />
+    <FlyoutItem Title="Loggers"
+                Icon="PlantListIcon.png">
+        <ShellContent Route="LoggersView"
+                      ContentTemplate="{DataTemplate v:LoggersView}" />
     </FlyoutItem>
-    <TabBar>
-        <ShellContent Route="CreatePlantView" ContentTemplate="{DataTemplate local:CreatePlantView}" />
-    </TabBar>
-    <FlyoutItem Title="Plants" Icon="PlantListIcon.png">
-        <ShellContent Route="PlantView" ContentTemplate="{DataTemplate local:PlantView}">
-            <TabBar>
-                <ShellContent Route="CreatePlantView" ContentTemplate="{DataTemplate local:CreatePlantView}" />
-            </TabBar>
-        </ShellContent>
+    
+    <FlyoutItem Title="Plants"
+                Icon="PlantListIcon.png">
+        <ShellContent Route="PlantView"
+                      ContentTemplate="{DataTemplate v:PlantView}" />
     </FlyoutItem>
 </Shell>
