@@ -2,15 +2,34 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:PlantControlApp.ViewModels" x:DataType="models:PairingViewModel"
-             x:Class="PlantControlApp.Views.PairingView">
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:PlantControlApp.ViewModels"
+             xmlns:m="clr-namespace:PlantControl.Models;assembly=PlantControl.Models"
+             x:DataType="vm:PairingViewModel"
+             x:Class="PlantControlApp.Views.PairingView"
+             Title="Pairings">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding AppearingCommand}" />
+    </ContentPage.Behaviors>
+    
     <ContentPage.Content>
         <StackLayout>
+            <ListView ItemsSource="{Binding Pairings}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Pairing">
+                        <TextCell Text="{Binding Id}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             
-            <Button Text="Create Pairing"
-                    WidthRequest="100"
-                    HeightRequest="40"
-                    Command="{Binding CreatePairingCommand}" />
+            <StackLayout Orientation="Horizontal"
+                         Padding="8"
+                         BackgroundColor="MistyRose">
+                <Button Text="Create Pairing"
+                        HorizontalOptions="Center"
+                        Command="{Binding CreatePairingCommand}" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
