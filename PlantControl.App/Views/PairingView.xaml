@@ -21,7 +21,7 @@
                       IsPullToRefreshEnabled="True">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="m:Pairing">
-                        <TextCell Text="{Binding _Id}" />
+                        <TextCell Text="{Binding Id}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
