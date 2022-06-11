@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
@@ -8,14 +7,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PlantControl.Models;
 using PlantControlApp.Services;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
+using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
 
 namespace PlantControlApp.ViewModels;
 
-internal class PairingViewModel : Bindable
+internal class PairingViewModel : ObservableObject
 {
     private readonly HttpClient _http;
     private readonly ScannerService _scannerService;
@@ -24,11 +21,7 @@ internal class PairingViewModel : Bindable
     public bool IsRefreshing
     {
         get => _isRefreshing;
-        set
-        {
-            _isRefreshing = value;
-            OnPropertyChanged();
-        }
+        set => SetProperty(ref _isRefreshing, value);
     }
 
     public ObservableCollection<Pairing> Pairings { get; }

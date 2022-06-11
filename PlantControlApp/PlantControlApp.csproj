@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\plant-control-models\PlantControl.Models.csproj" />
+        <ProjectReference Include="..\PlantControl.Models\PlantControl.Models.csproj" />
     </ItemGroup>
 
     <ItemGroup>

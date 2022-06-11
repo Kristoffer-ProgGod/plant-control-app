@@ -1,3 +1,3 @@
-[submodule "plant-control-models"]
-	path = plant-control-models
+[submodule "PlantControl.Models"]
+	path = PlantControl.Models
 	url = https://github.com/rasmus234/plant-control-models

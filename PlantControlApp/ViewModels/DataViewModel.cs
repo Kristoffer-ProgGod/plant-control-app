@@ -4,16 +4,17 @@ using PlantControlApp.Services;
 
 namespace PlantControlApp.ViewModels;
 
-public class DataViewModel : Bindable
+public class DataViewModel
 {
     private readonly SignalRService _signalRService;
 
+    public ObservableCollection<Logger> Loggers { get; }
+
     public DataViewModel(SignalRService signalRService)
     {
-        Loggers = new ObservableCollection<Logger>();
         _signalRService = signalRService;
-        Loggers.Add(new Logger {Id = "InitialLogger"});
+        
+        Loggers = new();
+        Loggers.Add(new Logger { Id = "InitialLogger" });
     }
-
-    public ObservableCollection<Logger> Loggers { get; }
 }
