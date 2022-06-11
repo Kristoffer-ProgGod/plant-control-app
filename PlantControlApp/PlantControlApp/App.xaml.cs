@@ -34,7 +34,7 @@ public partial class App : Application
         var services = new ServiceCollection();
         var httpClient = new HttpClient
         {
-            BaseAddress = new Uri("http://40.87.132.220:9092/"),
+            BaseAddress = new Uri("http://20.4.59.10:9092/"),
             Timeout = TimeSpan.FromSeconds(10)
         };
 
