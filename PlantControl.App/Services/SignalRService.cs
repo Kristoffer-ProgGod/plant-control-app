@@ -17,13 +17,13 @@ public class SignalRService
             // .WithUrl("http://40.87.132.220:9093/hubs/logger")
             .ConfigureLogging(builder => builder.AddDebug())
             .Build();
-        Connection.On<LoggerConfig>("ReceiveConfig", config => OnReceiveConfig?.Invoke(config));
+        Connection.On<Config>("ReceiveConfig", config => OnReceiveConfig?.Invoke(config));
         Connection.On<Logger>("NewLogger", logger => OnNewLogger?.Invoke(logger));
         Connection.On<Log>("ReceiveLog", log => OnReceiveLog?.Invoke(log));
         Connection.On<string>("RemoveLogger", loggerId => OnRemoveLogger?.Invoke(loggerId));
     }
 
-    public Action<LoggerConfig> OnReceiveConfig { get; set; }
+    public Action<Config> OnReceiveConfig { get; set; }
     public Action<Logger> OnNewLogger { get; set; }
     public Action<Log> OnReceiveLog { get; set; }
     public Action<string> OnRemoveLogger { get; set; }
@@ -41,7 +41,7 @@ public class SignalRService
         return await Connection.InvokeAsync<IEnumerable<Logger>>("GetOnlineLoggers");
     }
 
-    public async Task SetConfig(LoggerConfig config)
+    public async Task SetConfig(Config config)
     {
         await Connection.InvokeAsync("SetConfig", config);
     }

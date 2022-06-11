@@ -1,0 +1,29 @@
+﻿<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:v="clr-namespace:PlantControlApp.Views"
+       x:Class="PlantControlApp.Views.MainPage"
+       IconImageSource="hamburger.png">
+    <FlyoutItem Title="Statistics"
+                Icon="GraphIcon.png">
+        <ShellContent Route="DataView"
+                      ContentTemplate="{DataTemplate v:DataView}" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Pairings"
+                Icon="Pairing.png">
+        <ShellContent Route="PairingView"
+                      ContentTemplate="{DataTemplate v:PairingView}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Loggers"
+                Icon="PlantListIcon.png">
+        <ShellContent Route="LoggersView"
+                      ContentTemplate="{DataTemplate v:LoggersView}" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Plants"
+                Icon="PlantListIcon.png">
+        <ShellContent Route="PlantView"
+                      ContentTemplate="{DataTemplate v:PlantView}" />
+    </FlyoutItem>
+</Shell>

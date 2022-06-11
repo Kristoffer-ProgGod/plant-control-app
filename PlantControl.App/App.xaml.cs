@@ -32,11 +32,11 @@ public partial class App : Application
     private static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
-
-        var httpClient = new HttpClient();
-        httpClient.Timeout = TimeSpan.FromSeconds(10);
-        
-        httpClient.BaseAddress = new Uri("https://plant-control-rest.herokuapp.com/");
+        var httpClient = new HttpClient
+        {
+            BaseAddress = new Uri("http://20.4.59.10:9092/"),
+            Timeout = TimeSpan.FromSeconds(10)
+        };
 
         services.AddSingleton(httpClient);
         services.AddSingleton<SignalRService>();
