@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Newtonsoft.Json;
 using PlantControl.Models;
 using PlantControlApp.Services;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -42,14 +42,14 @@ internal class PairingViewModel : ObservableObject
     private async Task Refresh()
     {
         IsRefreshing = true;
-        
+
         try
         {
             var response = await _http.GetStringAsync("pairings");
 
             if (response == null) return;
 
-            var pairings = JsonSerializer.Deserialize<Pairing[]>(response);
+            var pairings = JsonConvert.DeserializeObject<Pairing[]>(response);
 
             if (pairings == null) return;
 
