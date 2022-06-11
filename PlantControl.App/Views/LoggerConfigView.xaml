@@ -2,8 +2,8 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControlApp"
-             x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels:LoggerConfigViewModel">
+             xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
+             x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels1:LoggerConfigViewModel">
     <ContentPage.Content>
         <StackLayout>
             <TableView Intent="Settings" BackgroundColor="LightGray">

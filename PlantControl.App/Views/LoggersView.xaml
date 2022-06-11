@@ -3,15 +3,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:viewModels="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControlApp"
              xmlns:models="clr-namespace:PlantControl.Models;assembly=PlantControl.Models"
-             x:Class="PlantControlApp.Views.LoggersView" x:DataType="viewModels:LoggersViewModel">
+             xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
+             x:Class="PlantControlApp.Views.LoggersView" x:DataType="viewModels1:LoggersViewModel">
     <ContentPage.Content>
 
         <Grid>
             <xct:TabView
                 TabStripPlacement="Bottom"
-                TabStripBackgroundColor="Blue"
+                TabStripBackgroundColor="DodgerBlue"
                 TabStripHeight="60"
                 TabIndicatorColor="Yellow"
                 TabContentBackgroundColor="White">

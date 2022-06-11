@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -38,7 +37,7 @@ public partial class LoggersViewModel
     public bool CanNavigate => SelectedLogger != null;
 
     [RelayCommand(CanExecute = nameof(CanNavigate))]
-    public async void NavigateLoggerConfig()
+    private async void NavigateLoggerConfig()
     {
         await Shell.Current.GoToAsync($"{nameof(LoggerConfigView)}?loggerId={SelectedLogger.Id}");
         // SelectedLogger = null;
@@ -48,10 +47,7 @@ public partial class LoggersViewModel
     {
         AllLoggers.Clear();
         var loggers = await _httpClient.GetFromJsonAsync<Logger[]>("loggers");
-        foreach (var logger in loggers)
-        {
-            AllLoggers.Add(logger);
-        }
+        loggers?.ForEach(logger => AllLoggers.Add(logger));
     }
 
     private async Task InitSignalR()
