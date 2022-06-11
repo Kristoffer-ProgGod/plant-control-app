@@ -31,7 +31,7 @@
                             Margin="10">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="models:Logger">
-                                    <Label Text="{Binding _Id}" FontSize="20" />
+                                    <Label Text="{Binding Id}" FontSize="20" />
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>

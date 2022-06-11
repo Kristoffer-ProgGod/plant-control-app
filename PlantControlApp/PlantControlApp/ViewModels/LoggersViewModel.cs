@@ -40,7 +40,7 @@ public partial class LoggersViewModel
     [RelayCommand(CanExecute = nameof(CanNavigate))]
     public async void NavigateLoggerConfig()
     {
-        await Shell.Current.GoToAsync($"{nameof(LoggerConfigView)}?loggerId={SelectedLogger._Id}");
+        await Shell.Current.GoToAsync($"{nameof(LoggerConfigView)}?loggerId={SelectedLogger.Id}");
         // SelectedLogger = null;
 
     }
@@ -63,6 +63,6 @@ public partial class LoggersViewModel
 
         _signalRService.OnNewLogger = logger => OnlineLoggers.Add(logger);
         _signalRService.OnRemoveLogger =
-            loggerId => OnlineLoggers.Remove(OnlineLoggers.FirstOrDefault(logger => logger._Id == loggerId));
+            loggerId => OnlineLoggers.Remove(OnlineLoggers.FirstOrDefault(logger => logger.Id == loggerId));
     }
 }

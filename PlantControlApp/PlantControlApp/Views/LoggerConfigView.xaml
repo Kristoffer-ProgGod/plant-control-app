@@ -9,82 +9,77 @@
             <TableView Intent="Settings" BackgroundColor="LightGray">
                 <TableRoot>
                     <TableSection Title="Logging">
-                        <SwitchCell Text="Active" On="{Binding LoggerConfig.Logging.Active}" />
-                        <EntryCell Label="Socket Url" Text="{Binding LoggerConfig.Logging.SocketUrl}" />
-                        <EntryCell Label="Rest Url" Text="{Binding LoggerConfig.Logging.RestUrl}" />
+                        <SwitchCell Text="Active" On="{Binding IsActive}" />
+                        <EntryCell Label="Socket Url" Text="{Binding SocketUrl}" />
+                        <EntryCell Label="Rest Url" Text="{Binding RestUrl}" />
 
                     </TableSection>
                     <TableSection Title="Air">
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="150" Text="Minimum Humidity:" VerticalOptions="Center"></Label>
-                                <Label Text="{Binding LoggerConfig.Air.MinTemp}"></Label>
+                                <Label WidthRequest="200" Text="Minimum Temperature:" VerticalOptions="Center"></Label>
+                                <Label WidthRequest="50" Text="{Binding MinTemperature}"></Label>
                                 <Slider
-                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
-                                    WidthRequest="200"
-                                    Value="{Binding LoggerConfig.Air.MinTemp}"
+                                    WidthRequest="150"
+                                    Value="{Binding MinTemperature}"
                                     Maximum="100">
                                 </Slider>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="150" Text="Minimum Temp:" VerticalOptions="Center"></Label>
-                                <Label Text="{Binding LoggerConfig.Air.MaxTemp}"></Label>
+                                <Label WidthRequest="200" Text="Maximum Temperature:" VerticalOptions="Center"></Label>
+                                <Label WidthRequest="50" Text="{Binding MaxTemperature }"></Label>
                                 <Slider
-                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
-                                    WidthRequest="200"
-                                    Value="{Binding LoggerConfig.Air.MaxTemp}"
+                                    WidthRequest="150"
+                                    Value="{Binding MaxTemperature}"
                                     Maximum="100">
                                 </Slider>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="150" Text="Maximum Humidity:" VerticalOptions="Center"></Label>
-                                <Label Text="{Binding LoggerConfig.Air.MaxHumid}"></Label>
+                                <Label WidthRequest="200" Text="Minimum Humidity:" VerticalOptions="Center"></Label>
+                                <Label WidthRequest="50" Text="{Binding MinHumidity}"></Label>
                                 <Slider
-                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
-                                    WidthRequest="200"
-                                    Value="{Binding LoggerConfig.Air.MaxHumid}"
+                                    WidthRequest="150"
+                                    Value="{Binding MinHumidity}"
                                     Maximum="100">
                                 </Slider>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="150" Text="Minimum Humidity:" VerticalOptions="Center"></Label>
-                                <Label Text="{Binding LoggerConfig.Air.MinHumid}"></Label>
+                                <Label WidthRequest="200" Text="Maximum Humidity:" VerticalOptions="Center"></Label>
+                                <Label WidthRequest="50" Text="{Binding MaxHumidity}"></Label>
                                 <Slider
-                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
-                                    WidthRequest="200"
-                                    Value="{Binding LoggerConfig.Air.MinHumid}"
+                                    WidthRequest="150"
+                                    Value="{Binding MaxHumidity}"
                                     Maximum="100">
                                 </Slider>
                             </StackLayout>
                         </ViewCell>
+
                     </TableSection>
                     <TableSection Title="Soil">
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="100" Text="Moist Value:" VerticalOptions="Center"></Label>
-                                <Label Text="{Binding LoggerConfig.Soil.Moist}"></Label>
+                                <Label WidthRequest="200" Text="Moist Value:" VerticalOptions="Center"></Label>
+                                <Label WidthRequest="50" Text="{Binding SoilMoist}"></Label>
                                 <Slider
-                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
-                                    WidthRequest="200"
-                                    Value="{Binding LoggerConfig.Soil.Moist}"
+                                    WidthRequest="150"
+                                    Value="{Binding SoilMoist}"
                                     Maximum="3.3">
                                 </Slider>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="100" Text="Dry Value:" VerticalOptions="Center"></Label>
-                                <Label Text="{Binding LoggerConfig.Soil.Dry}"></Label>
+                                <Label WidthRequest="200" Text="Dry Value:" VerticalOptions="Center"></Label>
+                                <Label WidthRequest="50" Text="{Binding SoilDry}"></Label>
                                 <Slider
-                                    DragCompletedCommand="{Binding ConfigChangedCommand}"
-                                    WidthRequest="200"
-                                    Value="{Binding LoggerConfig.Soil.Dry}"
+                                    WidthRequest="150"
+                                    Value="{Binding SoilDry}"
                                     Maximum="3.3">
                                 </Slider>
                             </StackLayout>

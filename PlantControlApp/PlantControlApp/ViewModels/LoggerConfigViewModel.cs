@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
@@ -12,20 +13,36 @@ using Xamarin.Forms;
 
 namespace PlantControlApp.ViewModels;
 
-[ObservableObject]
+
 [QueryProperty("LoggerId", "loggerId")]
-public partial class LoggerConfigViewModel
+public partial class LoggerConfigViewModel: ObservableValidator
 {
     private readonly HttpClient _httpClient;
     private readonly SignalRService _signalRService;
 
-    [ObservableProperty] private LoggerConfig _loggerConfig;
+    [ObservableProperty] private Config _loggerConfig;
 
     [ObservableProperty] private Logger _logger;
 
+    [ObservableProperty] [Url] private string _socketUrl;
+    
+    [ObservableProperty] [Url] private string _restUrl;
+
     [ObservableProperty] private string _loggerId;
 
-    [ObservableProperty] private float _dry;
+    [ObservableProperty] private bool _isActive;
+
+    [ObservableProperty] private double _minHumidity;
+
+    [ObservableProperty] private double _maxHumidity;
+
+    [ObservableProperty] private double _minTemperature;
+
+    [ObservableProperty] private double _maxTemperature;
+
+    [ObservableProperty] private double _soilMoist;
+
+    [ObservableProperty] private double _soilDry;
 
     [RelayCommand]
     public void ConfigChanged()
@@ -46,7 +63,24 @@ public partial class LoggerConfigViewModel
     {
         _httpClient = httpClient;
         _signalRService = signalRService;
-        _signalRService.OnReceiveConfig += RecieveConfig;
+        _signalRService.OnReceiveConfig += config =>
+        {
+            RecieveConfig(config);
+            InitializeConfigFields();
+        };
+    }
+
+    private void InitializeConfigFields()
+    {
+        if (_loggerConfig is null) return;
+        RestUrl = _loggerConfig.Logging.RestUrl;
+        SocketUrl = _loggerConfig.Logging.SocketUrl;
+        SoilDry = _loggerConfig.Soil.Dry;
+        SoilMoist = _loggerConfig.Soil.Moist;
+        MinTemperature = _loggerConfig.Air.MinTemp;
+        MaxTemperature = _loggerConfig.Air.MaxTemp;
+        MinHumidity = _loggerConfig.Air.MinHumid;
+        MaxHumidity = _loggerConfig.Air.MaxHumid;
     }
 
     private async void GetLogger()
@@ -59,7 +93,7 @@ public partial class LoggerConfigViewModel
         }
     }
 
-    private void RecieveConfig(LoggerConfig loggerConfig)
+    private void RecieveConfig(Config loggerConfig)
     {
         if (loggerConfig.Logging.LoggerId == LoggerId)
         {
@@ -75,6 +109,6 @@ public partial class LoggerConfigViewModel
     [RelayCommand]
     public async void SaveConfig()
     {
-        await this._signalRService.SetConfig(LoggerConfig);
+        await _signalRService.SetConfig(LoggerConfig);
     }
 }
