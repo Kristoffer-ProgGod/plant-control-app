@@ -12,7 +12,7 @@ public class DataViewModel : Bindable
     {
         Loggers = new ObservableCollection<Logger>();
         _signalRService = signalRService;
-        Loggers.Add(new Logger {Id = "InitialLogger"});
+        Loggers.Add(new Logger {_Id = "InitialLogger"});
     }
 
     public ObservableCollection<Logger> Loggers { get; }

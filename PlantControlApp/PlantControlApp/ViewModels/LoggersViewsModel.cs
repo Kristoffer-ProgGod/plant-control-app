@@ -39,15 +39,15 @@ public class LoggersViewsModel
     private async Task InitSignalR()
     {
         OnlineLoggers.Clear();
-        OnlineLoggers.Add(new Logger {Id = "InitialLogger"});
-        OnlineLoggers.Add(new Logger {Id = "InitialLogger2"});
-        OnlineLoggers.Add(new Logger {Id = "InitialLogger3"});
+        OnlineLoggers.Add(new Logger {_Id = "InitialLogger"});
+        OnlineLoggers.Add(new Logger {_Id = "InitialLogger2"});
+        OnlineLoggers.Add(new Logger {_Id = "InitialLogger3"});
         await _signalRService.StartConnection();
 
         (await _signalRService.GetOnlineLoggers()).ForEach(logger => OnlineLoggers.Add(logger));
 
         _signalRService.OnNewLogger = logger => OnlineLoggers.Add(logger);
         _signalRService.OnRemoveLogger =
-            loggerId => OnlineLoggers.Remove(OnlineLoggers.FirstOrDefault(logger => logger.Id == loggerId));
+            loggerId => OnlineLoggers.Remove(OnlineLoggers.FirstOrDefault(logger => logger._Id == loggerId));
     }
 }
