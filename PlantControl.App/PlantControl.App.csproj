@@ -41,6 +41,10 @@
         <Compile Update="Views\PairingView.xaml.cs">
             <DependentUpon>PairingView.xaml</DependentUpon>
         </Compile>
+        <Compile Update="Popups\CreatePairingPopup.xaml.cs">
+          <DependentUpon>CreatePairingPopup.xaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

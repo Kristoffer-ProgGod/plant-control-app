@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+           xmlns:popups="clr-namespace:PlantControlApp.Popups;assembly=PlantControl.App"
+           x:Class="PlantControlApp.Popups.CreatePairingPopup"
+           x:TypeArguments="x:String"
+           x:DataType="popups:CreatePairingPopup"
+           Size="300, 150">
+    <xct:Popup.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Entry x:Name="Entry"
+                   Placeholder="Enter a name"
+                   Grid.Row="1"
+                   Grid.Column="1" />
+
+            <Button x:Name="Button"
+                    Clicked="Button_OnClicked"
+                    Text="Create Pairing"
+                    IsEnabled="False"
+                    Grid.Row="2"
+                    Grid.Column="1" />
+        </Grid>
+    </xct:Popup.Content>
+</xct:Popup>
