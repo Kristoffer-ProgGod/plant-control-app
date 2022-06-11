@@ -12,9 +12,9 @@ public class SignalRService
     public SignalRService()
     {
         Connection = new HubConnectionBuilder()
-            .WithUrl("https://plant-control-backend.herokuapp.com/hubs/logger")
+            // .WithUrl("https://plant-control-backend.herokuapp.com/hubs/logger")
             // .WithUrl("http://10.0.2.2:5140/hubs/logger")
-            // .WithUrl("http://40.87.132.220:9093/hubs/logger")
+            .WithUrl("http://40.87.132.220:9093/hubs/logger")
             .ConfigureLogging(builder => builder.AddDebug())
             .Build();
         Connection.On<Config>("ReceiveConfig", config => OnReceiveConfig?.Invoke(config));
