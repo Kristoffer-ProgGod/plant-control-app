@@ -5,6 +5,7 @@
         <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
         <LangVersion>latestmajor</LangVersion>
         <Nullable>warnings</Nullable>
+        <RootNamespace>PlantControlApp</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

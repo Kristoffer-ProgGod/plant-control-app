@@ -8,7 +8,7 @@
     <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>PlantControlApp.Droid</RootNamespace>
-    <AssemblyName>PlantControlApp.Android</AssemblyName>
+    <AssemblyName>PlantControl.App.Android</AssemblyName>
     <Deterministic>True</Deterministic>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
@@ -95,9 +95,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlantControlApp\PlantControlApp.csproj">
-      <Project>{B1D7887C-0CB5-4487-8A10-395339875F5C}</Project>
-      <Name>PlantControlApp</Name>
+    <ProjectReference Include="..\PlantControl.App\PlantControl.App.csproj">
+      <Project>{eb2fc24d-1e1a-4ba5-869f-1549153ee7e1}</Project>
+      <Name>PlantControl.App</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
