@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -27,27 +26,28 @@ public class LoggersViewsModel
     public async void initOnlineLoggers()
     {
         OnlineLoggers.Clear();
+
         var response = await _httpClient.GetAsync("loggers");
         var loggers = await response.Content.ReadAsAsync<Logger[]>();
+
         foreach (var logger in loggers)
         {
             AllLoggers.Add(logger);
         }
-
     }
 
     private async Task InitSignalR()
     {
         OnlineLoggers.Clear();
-        OnlineLoggers.Add(new Logger {_Id = "InitialLogger"});
-        OnlineLoggers.Add(new Logger {_Id = "InitialLogger2"});
-        OnlineLoggers.Add(new Logger {_Id = "InitialLogger3"});
+        OnlineLoggers.Add(new Logger { Id = "InitialLogger" });
+        OnlineLoggers.Add(new Logger { Id = "InitialLogger2" });
+        OnlineLoggers.Add(new Logger { Id = "InitialLogger3" });
+
         await _signalRService.StartConnection();
 
         (await _signalRService.GetOnlineLoggers()).ForEach(logger => OnlineLoggers.Add(logger));
 
         _signalRService.OnNewLogger = logger => OnlineLoggers.Add(logger);
-        _signalRService.OnRemoveLogger =
-            loggerId => OnlineLoggers.Remove(OnlineLoggers.FirstOrDefault(logger => logger._Id == loggerId));
+        _signalRService.OnRemoveLogger = loggerId => OnlineLoggers.Remove(OnlineLoggers.FirstOrDefault(logger => logger.Id == loggerId));
     }
 }
