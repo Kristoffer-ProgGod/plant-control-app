@@ -46,7 +46,8 @@ public partial class App : Application
         services.AddTransient<CreatePlantViewModel>();
         services.AddTransient<PlantViewModel>();
         services.AddTransient<DataViewModel>();
-        services.AddTransient<LoggersViewsModel>();
+        services.AddTransient<LoggersViewModel>();
+        services.AddTransient<LoggerConfigViewModel>();
 
         return services.BuildServiceProvider();
     }
