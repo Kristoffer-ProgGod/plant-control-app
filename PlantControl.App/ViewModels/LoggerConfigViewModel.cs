@@ -41,7 +41,6 @@ public partial class LoggerConfigViewModel : ObservableValidator
     [ObservableProperty] private double _soilDry;
 
 
-
     public LoggerConfigViewModel(HttpClient httpClient, SignalRService signalRService)
     {
         _httpClient = httpClient;
@@ -51,7 +50,8 @@ public partial class LoggerConfigViewModel : ObservableValidator
             ReceiveConfig(config);
             InitializeConfigFields();
         };
-    }    
+    }
+
     partial void OnLoggerIdChanged(string value) => GetLogger();
 
     private void InitializeConfigFields()
@@ -91,17 +91,28 @@ public partial class LoggerConfigViewModel : ObservableValidator
     [RelayCommand]
     private async void SaveConfig()
     {
-        Console.Out.WriteLine(_minHumidity);
-        // Config newConfig = new()
-        // {
-        //     Air = new Air()
-        //     {
-        //         MinHumid = MinHumidity,
-        //         MaxHumid = MaxHumidity,
-        //         MinTemp = MinTemperature,
-        //         MaxTemp = MaxTemperature
-        //     },
-        // }
-        await _signalRService.SetConfig(LoggerConfig);
+        Config newConfig = new()
+        {
+            Air = new Air()
+            {
+                MinHumid = MinHumidity,
+                MaxHumid = MaxHumidity,
+                MinTemp = MinTemperature,
+                MaxTemp = MaxTemperature
+            },
+            Logging = new Logging()
+            {
+                Active = IsActive,
+                RestUrl = RestUrl,
+                SocketUrl = SocketUrl,
+                LoggerId = LoggerId
+            },
+            Soil = new Soil()
+            {
+                Moist = SoilMoist,
+                Dry = SoilDry
+            }
+        };
+        await _signalRService.SetConfig(newConfig);
     }
 }
