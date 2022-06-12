@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Newtonsoft.Json;
 using PlantControl.Models;
 using PlantControlApp.Popups;
 using PlantControlApp.Services;
@@ -56,11 +56,7 @@ internal class PairingViewModel : ObservableObject
 
         try
         {
-            var response = await _http.GetStringAsync("pairings");
-
-            if (response == null) return;
-
-            var pairings = JsonConvert.DeserializeObject<Pairing[]>(response);
+            var pairings = await _http.GetFromJsonAsync<Pairing[]>("pairings");
 
             if (pairings == null) return;
 
@@ -82,13 +78,13 @@ internal class PairingViewModel : ObservableObject
     private async Task CreatePairing()
     {
         var name = await App.Current.MainPage.Navigation.ShowPopupAsync(new CreatePairingPopup());
-        if (name == null) return;
+        if (string.IsNullOrWhiteSpace(name)) return;
         
         var plantId = await _scannerService.Scan(bottomText: "Scan the QR code on the plant");
-        if (plantId == null) return;
+        if (string.IsNullOrWhiteSpace(name)) return;
         
         var loggerId = await _scannerService.Scan(bottomText: "Scan the QR code on the logger");
-        if (loggerId == null) return;
+        if (string.IsNullOrWhiteSpace(loggerId)) return;
 
         var plantExists = (await _http.GetAsync($"plants/{plantId}")).IsSuccessStatusCode;
 

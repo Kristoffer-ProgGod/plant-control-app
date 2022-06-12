@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Newtonsoft.Json;
 using PlantControl.Models;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -33,12 +33,12 @@ public class PairingInfoViewModel : ObservableObject
     public PairingInfoViewModel(HttpClient http)
     {
         _http = http;
-        
+
         RefreshCommand = new AsyncCommand(Refresh);
     }
 
     private async Task Refresh()
     {
-        Pairing = JsonConvert.DeserializeObject<Pairing>(await _http.GetStringAsync($"pairings/{PairingId}"));
+        Pairing = await _http.GetFromJsonAsync<Pairing>($"pairings/{PairingId}");
     }
 }
