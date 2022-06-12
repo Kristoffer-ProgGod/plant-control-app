@@ -5,7 +5,8 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:models="clr-namespace:PlantControl.Models;assembly=PlantControl.Models"
              xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
-             x:Class="PlantControlApp.Views.LoggersView" x:DataType="viewModels1:LoggersViewModel">
+             x:Class="PlantControlApp.Views.LoggersView" x:DataType="viewModels1:LoggersViewModel"
+             Title="Loggers">
     <ContentPage.Content>
 
         <Grid>
