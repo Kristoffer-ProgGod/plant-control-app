@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
-using System.Web;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PlantControl.Models;
@@ -13,9 +10,8 @@ using Xamarin.Forms;
 
 namespace PlantControlApp.ViewModels;
 
-
 [QueryProperty("LoggerId", "loggerId")]
-public partial class LoggerConfigViewModel: ObservableValidator
+public partial class LoggerConfigViewModel : ObservableValidator
 {
     private readonly HttpClient _httpClient;
     private readonly SignalRService _signalRService;
@@ -25,14 +21,14 @@ public partial class LoggerConfigViewModel: ObservableValidator
     [ObservableProperty] private Logger _logger;
 
     [ObservableProperty] [Url] private string _socketUrl;
-    
+
     [ObservableProperty] [Url] private string _restUrl;
 
     [ObservableProperty] private string _loggerId;
 
     [ObservableProperty] private bool _isActive;
 
-    [ObservableProperty] private double _minHumidity;
+    [ObservableProperty] private long _minHumidity;
 
     [ObservableProperty] private double _maxHumidity;
 
@@ -44,19 +40,6 @@ public partial class LoggerConfigViewModel: ObservableValidator
 
     [ObservableProperty] private double _soilDry;
 
-    [RelayCommand]
-    public void ConfigChanged()
-    {
-        OnPropertyChanged(nameof(LoggerConfig));
-        Console.Out.WriteLine("value is now" + LoggerConfig.Soil);
-        // Console.Out.WriteLine("value is now" + Dry);
-    }
-
-
-    partial void OnLoggerIdChanged(string value)
-    {
-        GetLogger();
-    }
 
 
     public LoggerConfigViewModel(HttpClient httpClient, SignalRService signalRService)
@@ -65,10 +48,11 @@ public partial class LoggerConfigViewModel: ObservableValidator
         _signalRService = signalRService;
         _signalRService.OnReceiveConfig += config =>
         {
-            RecieveConfig(config);
+            ReceiveConfig(config);
             InitializeConfigFields();
         };
-    }
+    }    
+    partial void OnLoggerIdChanged(string value) => GetLogger();
 
     private void InitializeConfigFields()
     {
@@ -94,7 +78,7 @@ public partial class LoggerConfigViewModel: ObservableValidator
         }
     }
 
-    private void RecieveConfig(Config loggerConfig)
+    private void ReceiveConfig(Config loggerConfig)
     {
         if (loggerConfig.Logging.LoggerId == LoggerId)
         {
@@ -102,14 +86,22 @@ public partial class LoggerConfigViewModel: ObservableValidator
         }
     }
 
-    private async void GetLoggerConfig()
-    {
-        await _signalRService.GetConfig(LoggerId);
-    }
+    private async void GetLoggerConfig() => await _signalRService.GetConfig(LoggerId);
 
     [RelayCommand]
-    public async void SaveConfig()
+    private async void SaveConfig()
     {
+        Console.Out.WriteLine(_minHumidity);
+        // Config newConfig = new()
+        // {
+        //     Air = new Air()
+        //     {
+        //         MinHumid = MinHumidity,
+        //         MaxHumid = MaxHumidity,
+        //         MinTemp = MinTemperature,
+        //         MaxTemp = MaxTemperature
+        //     },
+        // }
         await _signalRService.SetConfig(LoggerConfig);
     }
 }
