@@ -1,20 +1,25 @@
-﻿using System.Collections.ObjectModel;
-using PlantControl.Models;
-using PlantControlApp.Services;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace PlantControlApp.ViewModels;
 
 public class DataViewModel
 {
-    private readonly SignalRService _signalRService;
+    private readonly HttpClient _http;
+    
+    public ICommand AppearingCommand { get; }
 
-    public ObservableCollection<Logger> Loggers { get; }
-
-    public DataViewModel(SignalRService signalRService)
+    public DataViewModel(HttpClient http)
     {
-        _signalRService = signalRService;
-        
-        Loggers = new();
-        Loggers.Add(new Logger { Id = "InitialLogger" });
+        _http = http;
+
+        AppearingCommand = new AsyncCommand(Refresh);
+    }
+
+    private async Task Refresh()
+    {
+        // Todo
     }
 }
