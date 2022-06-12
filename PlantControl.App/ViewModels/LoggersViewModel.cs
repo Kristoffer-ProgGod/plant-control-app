@@ -29,32 +29,34 @@ public partial class LoggersViewModel
     {
         _signalRService = signalRService;
         _httpClient = httpClient;
-        InitSignalR();
-        InitAllLoggers();
+        
+        Task.Run(() => InitSignalR());
+        Task.Run(() => InitAllLoggers());
     }
 
     public bool CanNavigate => SelectedLogger != null;
 
     [RelayCommand(CanExecute = nameof(CanNavigate))]
-    private async void NavigateLoggerConfig()
+    private async Task NavigateLoggerConfig()
     {
         await Shell.Current.GoToAsync($"{nameof(LoggerConfigView)}?loggerId={SelectedLogger.Id}");
         // SelectedLogger = null;
     }
 
-    private async void InitAllLoggers()
+    private async Task InitAllLoggers()
     {
         AllLoggers.Clear();
-        var loggers = await _httpClient.GetFromJsonAsync<Logger[]>("loggers");
+        var loggers = await _httpClient.GetFromJsonAsync<Logger[]>("loggers").ConfigureAwait(false);
         loggers?.ForEach(logger => AllLoggers.Add(logger));
     }
 
     private async Task InitSignalR()
     {
         OnlineLoggers.Clear();
-        await _signalRService.StartConnection();
+        await _signalRService.StartConnection().ConfigureAwait(false);
 
-        (await _signalRService.GetOnlineLoggers()).ForEach(logger => OnlineLoggers.Add(logger));
+        var loggers = await _signalRService.GetOnlineLoggers().ConfigureAwait(false);
+        loggers.ForEach(logger => OnlineLoggers.Add(logger));
 
         _signalRService.OnNewLogger = logger => OnlineLoggers.Add(logger);
         _signalRService.OnRemoveLogger =

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PlantControl.Models;
@@ -54,6 +55,7 @@ public partial class LoggerConfigViewModel : ObservableValidator
     private void InitializeConfigFields()
     {
         if (_loggerConfig is null) return;
+        
         IsActive = _loggerConfig.Logging.Active;
         RestUrl = _loggerConfig.Logging.RestUrl;
         SocketUrl = _loggerConfig.Logging.SocketUrl;
@@ -65,7 +67,7 @@ public partial class LoggerConfigViewModel : ObservableValidator
         MaxHumidity = _loggerConfig.Air.MaxHumid;
     }
 
-    private async void GetLogger()
+    private async Task GetLogger()
     {
         var response = await _httpClient.GetFromJsonAsync<Logger>($"loggers/{LoggerId}");
         if (response is not null)
@@ -84,10 +86,10 @@ public partial class LoggerConfigViewModel : ObservableValidator
         }
     }
 
-    private async void GetLoggerConfig() => await _signalRService.GetConfig(LoggerId);
+    private async Task GetLoggerConfig() => await _signalRService.GetConfig(LoggerId);
 
     [RelayCommand]
-    private async void SaveConfig()
+    private async Task SaveConfig()
     {
         Config newConfig = new()
         {
@@ -115,7 +117,7 @@ public partial class LoggerConfigViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    private async void Calibrate(string param)
+    private async Task Calibrate(string param)
     {
         if (Enum.TryParse<Calibration>(param, out var calibrationType))
         {
