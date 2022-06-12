@@ -13,6 +13,6 @@ internal class PlantViewModel
 
     public PlantViewModel()
     {
-        SwitchViewCommand = new AsyncCommand(async () => await Shell.Current.GoToAsync("////PlantView/CreatePlantView"));
+        SwitchViewCommand = new AsyncCommand(async () => await Shell.Current.GoToAsync("//PlantView/CreatePlantView"));
     }
 }

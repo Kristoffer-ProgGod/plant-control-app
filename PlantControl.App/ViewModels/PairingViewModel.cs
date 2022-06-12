@@ -8,8 +8,10 @@ using Newtonsoft.Json;
 using PlantControl.Models;
 using PlantControlApp.Popups;
 using PlantControlApp.Services;
+using PlantControlApp.Views;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
 
 namespace PlantControlApp.ViewModels;
@@ -27,6 +29,7 @@ internal class PairingViewModel : ObservableObject
     }
 
     public ObservableCollection<Pairing> Pairings { get; }
+    public ICommand SelectCommand { get; }
     public ICommand RefreshCommand { get; }
     public ICommand CreatePairingCommand { get; }
 
@@ -37,8 +40,14 @@ internal class PairingViewModel : ObservableObject
         _scannerService = scannerService;
 
         Pairings = new ObservableCollection<Pairing>();
+        SelectCommand = new AsyncCommand<Pairing>(Select);
         RefreshCommand = new AsyncCommand(Refresh);
         CreatePairingCommand = new AsyncCommand(CreatePairing);
+    }
+
+    private async Task Select(Pairing pairing)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(PairingView)}/{nameof(PairingInfoView)}?pairingId={pairing.Id}");
     }
 
     private async Task Refresh()
@@ -73,6 +82,7 @@ internal class PairingViewModel : ObservableObject
     private async Task CreatePairing()
     {
         var name = await App.Current.MainPage.Navigation.ShowPopupAsync(new CreatePairingPopup());
+        if (name == null) return;
         
         var plantId = await _scannerService.Scan(bottomText: "Scan the QR code on the plant");
         if (plantId == null) return;
