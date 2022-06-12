@@ -3,11 +3,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
              x:Class="PlantControlApp.Views.DataView"
+             x:DataType="vm:DataViewModel"
              Title="Statistics">
     <ContentPage.Behaviors>
         <xct:EventToCommandBehavior EventName="Appearing"
-                                    Command="" />
+                                    Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
     
     <ContentPage.Content>
