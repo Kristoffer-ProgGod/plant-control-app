@@ -82,13 +82,13 @@ internal class PairingViewModel : ObservableObject
     private async Task CreatePairing()
     {
         var name = await App.Current.MainPage.Navigation.ShowPopupAsync(new CreatePairingPopup());
-        if (name == null) return;
+        if (string.IsNullOrWhiteSpace(name)) return;
         
         var plantId = await _scannerService.Scan(bottomText: "Scan the QR code on the plant");
-        if (plantId == null) return;
+        if (string.IsNullOrWhiteSpace(name)) return;
         
         var loggerId = await _scannerService.Scan(bottomText: "Scan the QR code on the logger");
-        if (loggerId == null) return;
+        if (string.IsNullOrWhiteSpace(loggerId)) return;
 
         var plantExists = (await _http.GetAsync($"plants/{plantId}")).IsSuccessStatusCode;
 
