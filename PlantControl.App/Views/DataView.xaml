@@ -2,12 +2,17 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="PlantControlApp.Views.DataView"
              Title="Statistics">
-
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="" />
+    </ContentPage.Behaviors>
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="FUCKING DATA MY MANS"
+            <Label Text="Maybe delete me? :D"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand" />
         </StackLayout>
