@@ -3,13 +3,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="PlantControlApp.Views.LoggersView">
+             xmlns:models="clr-namespace:PlantControl.Models;assembly=PlantControl.Models"
+             xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
+             x:Class="PlantControlApp.Views.LoggersView" x:DataType="viewModels1:LoggersViewModel">
     <ContentPage.Content>
-        
+
         <Grid>
             <xct:TabView
                 TabStripPlacement="Bottom"
-                TabStripBackgroundColor="Blue"
+                TabStripBackgroundColor="DodgerBlue"
                 TabStripHeight="60"
                 TabIndicatorColor="Yellow"
                 TabContentBackgroundColor="White">
@@ -18,16 +20,24 @@
                     Icon="triangle.png"
                     Text="Online"
                     TextColor="LightGreen"
-                    TextColorSelected="Yellow"
+                    TextColorSelected="LightGreen"
                     FontSize="12">
                     <StackLayout>
-                        <ListView ItemsSource="{Binding OnlineLoggers}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <TextCell Text="{Binding Id}" />
+                        <CollectionView
+                            ItemsSource="{Binding OnlineLoggers}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding NavigateLoggerConfigCommand }"
+                            SelectedItem="{Binding SelectedLogger}"
+                            Margin="10">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Logger">
+                                    <Label Text="{Binding Id}" FontSize="20" />
                                 </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Button Margin="0" VerticalOptions="End" Text="Change Config"
+                                Command="{Binding NavigateLoggerConfigCommand}">
+                        </Button>
                     </StackLayout>
                 </xct:TabViewItem>
 
@@ -35,14 +45,17 @@
                     Icon="circle.png"
                     Text="All"
                     TextColor="White"
-                    TextColorSelected="Yellow"
+                    TextColorSelected="White"
                     FontSize="12">
-                    <Grid>
-                        <Label    
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Text="TabContent2" />
-                    </Grid>
+                    <StackLayout>
+                        <ListView ItemsSource="{Binding AllLoggers}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Logger">
+                                    <TextCell Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
                 </xct:TabViewItem>
             </xct:TabView>
         </Grid>
