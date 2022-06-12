@@ -64,6 +64,10 @@
         </EmbeddedResource>
         <None Remove="Fonts\Roboto-Regular.ttf" />
         <EmbeddedResource Include="Fonts\Roboto-Regular.ttf" />
+        <None Remove="Fonts\Roboto-Medium.ttf" />
+        <EmbeddedResource Include="Fonts\Roboto-Medium.ttf" />
+        <None Remove="Fonts\Roboto-Bold.ttf" />
+        <EmbeddedResource Include="Fonts\Roboto-Bold.ttf" />
     </ItemGroup>
 
     <ItemGroup>
