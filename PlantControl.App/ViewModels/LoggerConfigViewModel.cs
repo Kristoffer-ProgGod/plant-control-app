@@ -73,6 +73,7 @@ public partial class LoggerConfigViewModel: ObservableValidator
     private void InitializeConfigFields()
     {
         if (_loggerConfig is null) return;
+        IsActive = _loggerConfig.Logging.Active;
         RestUrl = _loggerConfig.Logging.RestUrl;
         SocketUrl = _loggerConfig.Logging.SocketUrl;
         SoilDry = _loggerConfig.Soil.Dry;

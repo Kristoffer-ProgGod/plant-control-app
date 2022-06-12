@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
+             xmlns:views="clr-namespace:PlantControlApp.Views;assembly=PlantControl.App"
              x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels1:LoggerConfigViewModel">
     <ContentPage.Content>
         <StackLayout>
@@ -12,78 +13,18 @@
                         <SwitchCell Text="Active" On="{Binding IsActive}" />
                         <EntryCell Label="Socket Url" Text="{Binding SocketUrl}" />
                         <EntryCell Label="Rest Url" Text="{Binding RestUrl}" />
-
                     </TableSection>
                     <TableSection Title="Air">
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="200" Text="Minimum Temperature:" VerticalOptions="Center"></Label>
-                                <Label WidthRequest="50" Text="{Binding MinTemperature}"></Label>
-                                <Slider
-                                    WidthRequest="150"
-                                    Value="{Binding MinTemperature}"
-                                    Maximum="100">
-                                </Slider>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="200" Text="Maximum Temperature:" VerticalOptions="Center"></Label>
-                                <Label WidthRequest="50" Text="{Binding MaxTemperature }"></Label>
-                                <Slider
-                                    WidthRequest="150"
-                                    Value="{Binding MaxTemperature}"
-                                    Maximum="100">
-                                </Slider>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="200" Text="Minimum Humidity:" VerticalOptions="Center"></Label>
-                                <Label WidthRequest="50" Text="{Binding MinHumidity}"></Label>
-                                <Slider
-                                    WidthRequest="150"
-                                    Value="{Binding MinHumidity}"
-                                    Maximum="100">
-                                </Slider>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="200" Text="Maximum Humidity:" VerticalOptions="Center"></Label>
-                                <Label WidthRequest="50" Text="{Binding MaxHumidity}"></Label>
-                                <Slider
-                                    WidthRequest="150"
-                                    Value="{Binding MaxHumidity}"
-                                    Maximum="100">
-                                </Slider>
-                            </StackLayout>
-                        </ViewCell>
-
+                        <views:SliderCell InfoLabelText="Minimum Temperature:" Value="{Binding MinTemperature}"
+                                          Maximum="100" />
+                        <views:SliderCell InfoLabelText="Maximum Temperature:" Value="{Binding MaxTemperature}"
+                                          Maximum="100" />
+                        <views:SliderCell InfoLabelText="Minimum Humidity:" Value="{Binding MinHumidity}" Maximum="100" />
+                        <views:SliderCell InfoLabelText="Maximum Humidity:" Value="{Binding MaxHumidity}" Maximum="100" />
                     </TableSection>
                     <TableSection Title="Soil">
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="200" Text="Moist Value:" VerticalOptions="Center"></Label>
-                                <Label WidthRequest="50" Text="{Binding SoilMoist}"></Label>
-                                <Slider
-                                    WidthRequest="150"
-                                    Value="{Binding SoilMoist}"
-                                    Maximum="3.3">
-                                </Slider>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Margin="10">
-                                <Label WidthRequest="200" Text="Dry Value:" VerticalOptions="Center"></Label>
-                                <Label WidthRequest="50" Text="{Binding SoilDry}"></Label>
-                                <Slider
-                                    WidthRequest="150"
-                                    Value="{Binding SoilDry}"
-                                    Maximum="3.3">
-                                </Slider>
-                            </StackLayout>
-                        </ViewCell>
+                        <views:SliderCell InfoLabelText="Moist Value:" Value="{Binding SoilMoist}" Maximum="3.3" />
+                        <views:SliderCell InfoLabelText="Dry Value:" Value="{Binding SoilDry}" Maximum="3.3" />
                     </TableSection>
                 </TableRoot>
             </TableView>
