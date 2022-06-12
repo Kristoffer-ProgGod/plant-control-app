@@ -16,12 +16,14 @@ namespace PlantControlApp.ViewModels;
 [ObservableObject]
 public partial class LoggersViewModel
 {
-    private readonly SignalRService _signalRService;
     private readonly HttpClient _httpClient;
+    private readonly SignalRService _signalRService;
 
-
-    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(NavigateLoggerConfigCommand))]
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(NavigateLoggerConfigCommand))]
     private Logger _selectedLogger;
+
+    public ObservableCollection<Logger> OnlineLoggers { get; } = new();
+    public ObservableCollection<Logger> AllLoggers { get; } = new();
 
     public LoggersViewModel(SignalRService signalRService, HttpClient httpClient)
     {
@@ -31,9 +33,6 @@ public partial class LoggersViewModel
         InitAllLoggers();
     }
 
-    public ObservableCollection<Logger> OnlineLoggers { get; } = new();
-    public ObservableCollection<Logger> AllLoggers { get; } = new();
-    
     public bool CanNavigate => SelectedLogger != null;
 
     [RelayCommand(CanExecute = nameof(CanNavigate))]
@@ -41,8 +40,8 @@ public partial class LoggersViewModel
     {
         await Shell.Current.GoToAsync($"{nameof(LoggerConfigView)}?loggerId={SelectedLogger.Id}");
         // SelectedLogger = null;
-
     }
+
     private async void InitAllLoggers()
     {
         AllLoggers.Clear();

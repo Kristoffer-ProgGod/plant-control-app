@@ -7,7 +7,7 @@
              x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels1:LoggerConfigViewModel"
              Title="{Binding Logger.Name}">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="LightGray">
             <TableView Intent="Settings" BackgroundColor="LightGray">
                 <TableRoot>
                     <TableSection Title="Logging">
@@ -27,12 +27,24 @@
                         <views:SliderCell InfoLabelText="Moist Value:" Value="{Binding SoilMoist}" Maximum="3.3" />
                         <views:SliderCell InfoLabelText="Dry Value:" Value="{Binding SoilDry}" Maximum="3.3" />
                     </TableSection>
+                    <TableSection Title="Calibration">
+                        <ViewCell>
+                            <Grid RowDefinitions="*" ColumnDefinitions="*,*" HorizontalOptions="Fill">
+                                <Button Text="Moisture" Grid.Column="0" Command="{Binding CalibrateCommand}"
+                                        CommandParameter="Moist" />
+                                <Button Text="Dryness" Grid.Column="1" Command="{Binding CalibrateCommand}"
+                                        CommandParameter="Dry" />
+                            </Grid>
+                        </ViewCell>
+                    </TableSection>
                 </TableRoot>
             </TableView>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <Button Text="Save Config" Command="{Binding SaveConfigCommand}"></Button>
-                <Button Text="Cancel"></Button>
-            </StackLayout>
+            <Grid RowDefinitions="*" ColumnDefinitions="*,*" HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
+                <Button Text="Save Config" FontAttributes="Bold" TextColor="Green" FontSize="15"
+                        Command="{Binding SaveConfigCommand}" Grid.Column="0" />
+                <Button Text="Cancel" FontAttributes="Bold" TextColor="Red" FontSize="15" Grid.Column="1" />
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using PlantControl.Models;
+using PlantControlApp.Enums;
 
 namespace PlantControlApp.Services;
 
@@ -29,6 +30,7 @@ public class SignalRService
     public Action<string> OnRemoveLogger { get; set; }
     public HubConnection Connection { get; set; }
 
+
     public async Task StartConnection()
     {
         if (Connection.State == HubConnectionState.Connected) return;
@@ -49,5 +51,10 @@ public class SignalRService
     public async Task GetConfig(string id)
     {
         await Connection.InvokeAsync("GetConfig", id);
+    }
+
+    public async Task Calibrate(Calibration calibration, string loggerId)
+    {
+        await Connection.InvokeAsync("Calibrate", calibration.ToString(), loggerId);
     }
 }
