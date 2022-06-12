@@ -37,8 +37,7 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                         <Button Margin="0" VerticalOptions="End" Text="Change Config"
-                                Command="{Binding NavigateLoggerConfigCommand}">
-                        </Button>
+                                Command="{Binding NavigateLoggerConfigCommand}" />
                     </StackLayout>
                 </xct:TabViewItem>
 

@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PlantControl.Models;
+using PlantControlApp.Enums;
 using PlantControlApp.Services;
 using Xamarin.Forms;
 
@@ -16,40 +17,36 @@ public partial class LoggerConfigViewModel : ObservableValidator
     private readonly HttpClient _httpClient;
     private readonly SignalRService _signalRService;
 
-    [ObservableProperty] private Config _loggerConfig;
+    [ObservableProperty] private bool _isActive;
 
     [ObservableProperty] private Logger _logger;
 
-    [ObservableProperty] [Url] private string _socketUrl;
-
-    [ObservableProperty] [Url] private string _restUrl;
+    [ObservableProperty] private Config _loggerConfig;
 
     [ObservableProperty] private string _loggerId;
 
-    [ObservableProperty] private bool _isActive;
-
-    [ObservableProperty] private double _minHumidity;
-
     [ObservableProperty] private double _maxHumidity;
-
-    [ObservableProperty] private double _minTemperature;
 
     [ObservableProperty] private double _maxTemperature;
 
-    [ObservableProperty] private double _soilMoist;
+    [ObservableProperty] private double _minHumidity;
+
+    [ObservableProperty] private double _minTemperature;
+
+    [ObservableProperty] [Url] private string _restUrl;
+
+    [ObservableProperty] [Url] private string _socketUrl;
 
     [ObservableProperty] private double _soilDry;
+
+    [ObservableProperty] private double _soilMoist;
 
 
     public LoggerConfigViewModel(HttpClient httpClient, SignalRService signalRService)
     {
         _httpClient = httpClient;
         _signalRService = signalRService;
-        _signalRService.OnReceiveConfig += config =>
-        {
-            ReceiveConfig(config);
-            InitializeConfigFields();
-        };
+        _signalRService.OnReceiveConfig += ReceiveConfig;
     }
 
     partial void OnLoggerIdChanged(string value) => GetLogger();
@@ -83,6 +80,7 @@ public partial class LoggerConfigViewModel : ObservableValidator
         if (loggerConfig.Logging.LoggerId == LoggerId)
         {
             LoggerConfig = loggerConfig;
+            InitializeConfigFields();
         }
     }
 
@@ -93,26 +91,35 @@ public partial class LoggerConfigViewModel : ObservableValidator
     {
         Config newConfig = new()
         {
-            Air = new Air()
+            Air = new Air
             {
                 MinHumid = MinHumidity,
                 MaxHumid = MaxHumidity,
                 MinTemp = MinTemperature,
                 MaxTemp = MaxTemperature
             },
-            Logging = new Logging()
+            Logging = new Logging
             {
                 Active = IsActive,
                 RestUrl = RestUrl,
                 SocketUrl = SocketUrl,
                 LoggerId = LoggerId
             },
-            Soil = new Soil()
+            Soil = new Soil
             {
                 Moist = SoilMoist,
                 Dry = SoilDry
             }
         };
         await _signalRService.SetConfig(newConfig);
+    }
+
+    [RelayCommand]
+    private async void Calibrate(string param)
+    {
+        if (Enum.TryParse<Calibration>(param, out var calibrationType))
+        {
+            await _signalRService.Calibrate(calibrationType, LoggerId);
+        }
     }
 }
