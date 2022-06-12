@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
              xmlns:views="clr-namespace:PlantControlApp.Views;assembly=PlantControl.App"
-             x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels1:LoggerConfigViewModel">
+             x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels1:LoggerConfigViewModel"
+             Title="{Binding Logger.Name}">
     <ContentPage.Content>
         <StackLayout>
             <TableView Intent="Settings" BackgroundColor="LightGray">
