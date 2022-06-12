@@ -60,6 +60,8 @@
         <EmbeddedResource Update="Views\PairingView.xaml">
             <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
         </EmbeddedResource>
+        <None Remove="Fonts\Roboto-Regular.ttf" />
+        <EmbeddedResource Include="Fonts\Roboto-Regular.ttf" />
     </ItemGroup>
 
     <ItemGroup>

@@ -43,6 +43,7 @@ public partial class App : Application
         services.AddSingleton<ScannerService>();
 
         services.AddTransient<PairingViewModel>();
+        services.AddTransient<PairingInfoViewModel>();
         services.AddTransient<CreatePlantViewModel>();
         services.AddTransient<PlantViewModel>();
         services.AddTransient<DataViewModel>();
