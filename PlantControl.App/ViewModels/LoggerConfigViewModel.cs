@@ -28,7 +28,7 @@ public partial class LoggerConfigViewModel : ObservableValidator
 
     [ObservableProperty] private bool _isActive;
 
-    [ObservableProperty] private long _minHumidity;
+    [ObservableProperty] private double _minHumidity;
 
     [ObservableProperty] private double _maxHumidity;
 
