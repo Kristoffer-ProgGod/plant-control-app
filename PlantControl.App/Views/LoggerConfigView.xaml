@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
+             xmlns:views="clr-namespace:PlantControlApp.Views;assembly=PlantControl.App"
+             x:Class="PlantControlApp.Views.LoggerConfigView" x:DataType="viewModels1:LoggerConfigViewModel"
+             Title="{Binding Logger.Name}">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="LightGray">
+            <TableView Intent="Settings" BackgroundColor="LightGray">
+                <TableRoot>
+                    <TableSection Title="Logging">
+                        <SwitchCell Text="Active" On="{Binding IsActive}" />
+                        <EntryCell Label="Socket Url" Text="{Binding SocketUrl}" />
+                        <EntryCell Label="Rest Url" Text="{Binding RestUrl}" />
+                    </TableSection>
+                    <TableSection Title="Air">
+                        <views:SliderCell InfoLabelText="Minimum Temperature:" Value="{Binding MinTemperature}"
+                                          Maximum="100" />
+                        <views:SliderCell InfoLabelText="Maximum Temperature:" Value="{Binding MaxTemperature}"
+                                          Maximum="100" />
+                        <views:SliderCell InfoLabelText="Minimum Humidity:" Value="{Binding MinHumidity}" Maximum="100" />
+                        <views:SliderCell InfoLabelText="Maximum Humidity:" Value="{Binding MaxHumidity}" Maximum="100" />
+                    </TableSection>
+                    <TableSection Title="Soil">
+                        <views:SliderCell InfoLabelText="Moist Value:" Value="{Binding SoilMoist}" Maximum="3.3" />
+                        <views:SliderCell InfoLabelText="Dry Value:" Value="{Binding SoilDry}" Maximum="3.3" />
+                    </TableSection>
+                    <TableSection Title="Calibration">
+                        <ViewCell>
+                            <Grid RowDefinitions="*" ColumnDefinitions="*,*" HorizontalOptions="Fill">
+                                <Button Text="Moisture" Grid.Column="0" Command="{Binding CalibrateCommand}"
+                                        CommandParameter="Moist" />
+                                <Button Text="Dryness" Grid.Column="1" Command="{Binding CalibrateCommand}"
+                                        CommandParameter="Dry" />
+                            </Grid>
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Grid RowDefinitions="*" ColumnDefinitions="*,*" HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
+                <Button Text="Save Config" FontAttributes="Bold" TextColor="Green" FontSize="15"
+                        Command="{Binding SaveConfigCommand}" Grid.Column="0" />
+                <Button Text="Cancel" FontAttributes="Bold" TextColor="Red" FontSize="15" Grid.Column="1" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

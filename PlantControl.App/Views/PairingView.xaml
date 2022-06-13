@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:PlantControlApp.ViewModels"
+             xmlns:m="clr-namespace:PlantControl.Models;assembly=PlantControl.Models"
+             x:DataType="vm:PairingViewModel"
+             x:Class="PlantControlApp.Views.PairingView"
+             Title="Pairings">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding RefreshCommand}" />
+    </ContentPage.Behaviors>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ListView"
+                      ItemsSource="{Binding Pairings}"
+                      RefreshCommand="{Binding RefreshCommand}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      IsPullToRefreshEnabled="True">
+                <ListView.Behaviors>
+                    <xct:EventToCommandBehavior EventName="ItemSelected"
+                                                Command="{Binding SelectCommand}"
+                                                CommandParameter="{Binding Source={x:Reference ListView}, Path=SelectedItem}" />
+                </ListView.Behaviors>
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="m:Pairing">
+                        <TextCell Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <StackLayout Orientation="Horizontal"
+                         Padding="8"
+                         BackgroundColor="MistyRose">
+                <Button Text="Create Pairing"
+                        HorizontalOptions="Center"
+                        Command="{Binding CreatePairingCommand}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

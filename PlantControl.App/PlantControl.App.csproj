@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>warnings</Nullable>
+        <RootNamespace>PlantControlApp</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DebugType>portable</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0-preview.4.22229.4" />
+        <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+        <PackageReference Include="System.Text.Json" Version="6.0.4" />
+
+        <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.2" />
+
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+        <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
+        <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\PlantControl.Models\PlantControl.Models.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Views\PlantView.xaml.cs">
+            <DependentUpon>PlantView.xaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\DataView.xaml.cs">
+            <DependentUpon>DataView.xaml</DependentUpon>
+        </Compile>
+        <Compile Update="Views\PairingView.xaml.cs">
+            <DependentUpon>PairingView.xaml</DependentUpon>
+        </Compile>
+        <Compile Update="Popups\CreatePairingPopup.xaml.cs">
+          <DependentUpon>CreatePairingPopup.xaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Views\CreatePlantView.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\PlantView.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\DataView.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Views\PairingView.xaml">
+            <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+        </EmbeddedResource>
+        <None Remove="Fonts\Roboto-Regular.ttf" />
+        <EmbeddedResource Include="Fonts\Roboto-Regular.ttf" />
+        <None Remove="Fonts\Roboto-Medium.ttf" />
+        <EmbeddedResource Include="Fonts\Roboto-Medium.ttf" />
+        <None Remove="Fonts\Roboto-Bold.ttf" />
+        <EmbeddedResource Include="Fonts\Roboto-Bold.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Views\CreatePlantView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </None>
+    </ItemGroup>
+</Project>

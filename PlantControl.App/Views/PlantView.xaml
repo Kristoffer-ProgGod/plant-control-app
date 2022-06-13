@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:PlantControlApp.ViewModels" x:DataType="models:PlantViewModel"
+             x:Class="PlantControlApp.Views.PlantView"
+             Title="Plants">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Plant List" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" />
+            <ListView ItemsSource="{Binding Plants}" />
+
+            <Button Text="Create Plant" Command="{Binding SwitchViewCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

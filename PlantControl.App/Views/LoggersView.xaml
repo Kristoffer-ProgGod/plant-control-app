@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:models="clr-namespace:PlantControl.Models;assembly=PlantControl.Models"
+             xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
+             x:Class="PlantControlApp.Views.LoggersView" x:DataType="viewModels1:LoggersViewModel"
+             Title="Loggers">
+    <ContentPage.Content>
+
+        <Grid>
+            <xct:TabView
+                TabStripPlacement="Bottom"
+                TabStripBackgroundColor="DodgerBlue"
+                TabStripHeight="60"
+                TabIndicatorColor="Yellow"
+                TabContentBackgroundColor="White">
+
+                <xct:TabViewItem
+                    Icon="triangle.png"
+                    Text="Online"
+                    TextColor="LightGreen"
+                    TextColorSelected="LightGreen"
+                    FontSize="12">
+                    <StackLayout>
+                        <CollectionView
+                            ItemsSource="{Binding OnlineLoggers}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding NavigateLoggerConfigCommand }"
+                            SelectedItem="{Binding SelectedLogger}"
+                            Margin="10">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Logger">
+                                    <Label Text="{Binding Id}" FontSize="20" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Button Margin="0" VerticalOptions="End" Text="Change Config"
+                                Command="{Binding NavigateLoggerConfigCommand}" />
+                    </StackLayout>
+                </xct:TabViewItem>
+
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="All"
+                    TextColor="White"
+                    TextColorSelected="White"
+                    FontSize="12">
+                    <StackLayout>
+                        <ListView ItemsSource="{Binding AllLoggers}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Logger">
+                                    <TextCell Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </xct:TabViewItem>
+            </xct:TabView>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>
