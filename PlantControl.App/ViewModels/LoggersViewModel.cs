@@ -29,11 +29,11 @@ public partial class LoggersViewModel
     {
         _signalRService = signalRService;
         _httpClient = httpClient;
-        Task.Run(() =>
-        {
-            InitAllLoggers();
-            InitSignalR();
-        });
+        // Task.Run(() =>
+        // {
+        //     InitAllLoggers();
+        //     InitSignalR();
+        // });
     }
 
     public bool CanNavigate => SelectedLogger != null;
@@ -41,8 +41,8 @@ public partial class LoggersViewModel
     [RelayCommand]
     public async Task Refresh()
     {
-        // await InitAllLoggers();
-        // await InitSignalR();
+        await InitAllLoggers();
+        await InitSignalR();
     }
     /// <summary>
     ///  Navigate to the logger config page, with the parameters of the selected logger
@@ -60,7 +60,7 @@ public partial class LoggersViewModel
     private async Task InitAllLoggers()
     {
         AllLoggers.Clear();
-        var loggers = await _httpClient.GetFromJsonAsync<Logger[]>("loggers");
+        var loggers = await _httpClient.GetFromJsonAsync<Logger[]>("loggers").ConfigureAwait(false);
         loggers?.ForEach(logger => AllLoggers.Add(logger));
     }
 
@@ -71,9 +71,9 @@ public partial class LoggersViewModel
     private async Task InitSignalR()
     {
         OnlineLoggers.Clear();
-        await _signalRService.StartConnection();
+        await _signalRService.StartConnection().ConfigureAwait(false);
 
-        var loggers = await _signalRService.GetOnlineLoggers();
+        var loggers = await _signalRService.GetOnlineLoggers().ConfigureAwait(false);
         loggers.ForEach(logger => OnlineLoggers.Add(logger));
 
         _signalRService.OnNewLogger = logger => OnlineLoggers.Add(logger);
