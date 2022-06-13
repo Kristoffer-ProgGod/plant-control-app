@@ -52,6 +52,9 @@ public partial class LoggerConfigViewModel : ObservableValidator
 
     partial void OnLoggerIdChanged(string value) => GetLogger();
 
+    /// <summary>
+    /// Initializes the view models properties from the remote logger config.
+    /// </summary>
     private void InitializeConfigFields()
     {
         if (_loggerConfig is null) return;
@@ -67,6 +70,9 @@ public partial class LoggerConfigViewModel : ObservableValidator
         MaxHumidity = _loggerConfig.Air.MaxHumid;
     }
 
+    /// <summary>
+    /// Gets the selected logger from the server
+    /// </summary>
     private async Task GetLogger()
     {
         var response = await _httpClient.GetFromJsonAsync<Logger>($"loggers/{LoggerId}");
@@ -77,6 +83,10 @@ public partial class LoggerConfigViewModel : ObservableValidator
         }
     }
 
+    /// <summary>
+    /// Callback for when the logger config is received from the server.
+    /// </summary>
+    /// <param name="loggerConfig"></param>
     private void ReceiveConfig(Config loggerConfig)
     {
         if (loggerConfig.Logging.LoggerId == LoggerId)
@@ -88,6 +98,9 @@ public partial class LoggerConfigViewModel : ObservableValidator
 
     private async Task GetLoggerConfig() => await _signalRService.GetConfig(LoggerId);
 
+    /// <summary>
+    /// Sends the updated config to the server.
+    /// </summary>
     [RelayCommand]
     private async Task SaveConfig()
     {
@@ -116,6 +129,10 @@ public partial class LoggerConfigViewModel : ObservableValidator
         await _signalRService.SetConfig(newConfig);
     }
 
+    /// <summary>
+    /// Calibrates a specific logger's sensor
+    /// </summary>
+    /// <param name="param"></param>
     [RelayCommand]
     private async Task Calibrate(string param)
     {

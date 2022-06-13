@@ -29,6 +29,10 @@ public partial class App : Application
     /// </summary>
     public IServiceProvider Services { get; }
 
+    /// <summary>
+    /// Configures all services for the application.
+    /// </summary>
+    /// <returns></returns>
     private static IServiceProvider ConfigureServices()
     {
         var services = new ServiceCollection();
@@ -39,6 +43,7 @@ public partial class App : Application
         };
 
         services.AddSingleton(httpClient);
+        
         services.AddSingleton<SignalRService>();
         services.AddSingleton<ScannerService>();
 

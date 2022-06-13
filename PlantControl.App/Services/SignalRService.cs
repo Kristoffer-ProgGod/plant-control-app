@@ -8,8 +8,15 @@ using PlantControlApp.Enums;
 
 namespace PlantControlApp.Services;
 
+/**
+ * Service for communicating with the PlantControl signalr server.
+ * Contains delegates for handling events from the server.
+ */
 public class SignalRService
 {
+    /// <summary>
+    /// Initializes connection and event handlers for the PlantControl signalr server.
+    /// </summary>
     public SignalRService()
     {
         Connection = new HubConnectionBuilder()
@@ -31,6 +38,9 @@ public class SignalRService
     public HubConnection Connection { get; set; }
 
 
+    /// <summary>
+    /// Starts connection if not already started.
+    /// </summary>
     public async Task StartConnection()
     {
         if (Connection.State == HubConnectionState.Connected) return;
@@ -38,21 +48,39 @@ public class SignalRService
         await Connection.InvokeAsync("Subscribe");
     }
 
+    /// <summary>
+    /// get all online loggers
+    /// </summary>
+    /// <returns></returns>
     public async Task<IEnumerable<Logger>> GetOnlineLoggers()
     {
         return await Connection.InvokeAsync<IEnumerable<Logger>>("GetOnlineLoggers");
     }
 
+    /// <summary>
+    /// send a new config to the server
+    /// </summary>
+    /// <param name="config"></param>
     public async Task SetConfig(Config config)
     {
         await Connection.InvokeAsync("SetConfig", config);
     }
+    
 
+    /// <summary>
+    /// Gets a specific logger's config from the server
+    /// </summary>
+    /// <param name="id"></param>
     public async Task GetConfig(string id)
     {
         await Connection.InvokeAsync("GetConfig", id);
     }
 
+    /// <summary>
+    /// calibrate a specific logger's seonsor 
+    /// </summary>
+    /// <param name="calibration"></param>
+    /// <param name="loggerId"></param>
     public async Task Calibrate(Calibration calibration, string loggerId)
     {
         await Connection.InvokeAsync("Calibrate", calibration.ToString(), loggerId);
