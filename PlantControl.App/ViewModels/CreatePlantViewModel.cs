@@ -57,6 +57,7 @@ public class CreatePlantViewModel : ObservableObject
         multiContent.Add(imageContent, "image", "image");
 
         await _httpClient.PostAsync("plants", multiContent);
+        await Shell.Current.GoToAsync("//PlantView");
     }
 
     private async Task TakePhoto()
