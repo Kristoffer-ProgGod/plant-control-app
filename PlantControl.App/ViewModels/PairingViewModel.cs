@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PlantControl.Models;
@@ -20,6 +22,7 @@ internal class PairingViewModel : ObservableObject
 {
     private readonly HttpClient _http;
     private readonly ScannerService _scannerService;
+    private readonly SignalRService _signalRService;
     private bool _isRefreshing;
 
     public bool IsRefreshing
@@ -34,10 +37,11 @@ internal class PairingViewModel : ObservableObject
     public ICommand CreatePairingCommand { get; }
 
 
-    public PairingViewModel(HttpClient http, ScannerService scannerService)
+    public PairingViewModel(HttpClient http, ScannerService scannerService, SignalRService signalRService)
     {
         _http = http;
         _scannerService = scannerService;
+        _signalRService = signalRService;
 
         Pairings = new ObservableCollection<Pairing>();
         SelectCommand = new AsyncCommand<Pairing>(Select);
@@ -79,10 +83,10 @@ internal class PairingViewModel : ObservableObject
     {
         var name = await App.Current.MainPage.Navigation.ShowPopupAsync(new CreatePairingPopup());
         if (string.IsNullOrWhiteSpace(name)) return;
-        
+
         var plantId = await _scannerService.Scan(bottomText: "Scan the QR code on the plant");
         if (string.IsNullOrWhiteSpace(name)) return;
-        
+
         var loggerId = await _scannerService.Scan(bottomText: "Scan the QR code on the logger");
         if (string.IsNullOrWhiteSpace(loggerId)) return;
 
@@ -91,26 +95,28 @@ internal class PairingViewModel : ObservableObject
         if (!plantExists)
         {
             App.Current.MainPage.Navigation.ShowPopup(new ErrorPopup("The plant does not exist in the database."));
-            
+
             return;
         }
-        
+
         var loggerExists = (await _http.GetAsync($"loggers/{loggerId}")).IsSuccessStatusCode;
 
         if (!loggerExists)
         {
             App.Current.MainPage.Navigation.ShowPopup(new ErrorPopup("The logger does not exist in the database."));
-            
+
             return;
         }
 
-        await _http.PostAsJsonAsync("pairings", new
+        var result = await _http.PostAsJsonAsync("pairings", new
         {
             name,
             plant = plantId,
             logger = loggerId
         });
 
+        await _signalRService.StartConnection();
+        await _signalRService.SetPairingId(loggerId, await result.Content.ReadFromJsonAsync<string>());
         await Refresh();
     }
 }

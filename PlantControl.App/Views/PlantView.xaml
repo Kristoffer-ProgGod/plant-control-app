@@ -2,15 +2,52 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:PlantControlApp.ViewModels" x:DataType="models:PlantViewModel"
+             xmlns:models="clr-namespace:PlantControlApp.ViewModels" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" x:DataType="models:PlantViewModel"
+             xmlns:m="clr-namespace:PlantControl.Models;assembly=PlantControl.Models"
+             xmlns:converters="clr-namespace:PlantControlApp.Converters"
              x:Class="PlantControlApp.Views.PlantView"
              Title="Plants">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding GetPlantListCMD}" />
+    </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PlantIdToImageSourceConverter x:Key="idToImageSource"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Plant List" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" />
-            <ListView ItemsSource="{Binding Plants}" />
+            <ListView x:Name="ListView"
+                      ItemsSource="{Binding PlantList}"
+                      RefreshCommand="{Binding GetPlantListCMD}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      IsPullToRefreshEnabled="True"
+                      RowHeight="80">
+                    <!--<ListView.Behaviors>
+                        <xct:EventToCommandBehavior EventName="ItemSelected"
+                                                Command="{Binding SelectCommand}"
+                                                CommandParameter="{Binding Source={x:Reference ListView}, Path=SelectedItem}" />
+                    </ListView.Behaviors>-->
 
-            <Button Text="Create Plant" Command="{Binding SwitchViewCommand}" />
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="m:Plant">
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Name}" Grid.Column="0"/>
+                                <Image Source="{Binding Id, Converter={StaticResource idToImageSource}}" Grid.Column="1" Rotation="-90" Aspect="AspectFit"/>
+                            </Grid>
+                        </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Text="Create Plant" Command="{Binding SwitchViewCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
