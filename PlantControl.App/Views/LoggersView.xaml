@@ -7,8 +7,14 @@
              xmlns:viewModels1="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
              x:Class="PlantControlApp.Views.LoggersView" x:DataType="viewModels1:LoggersViewModel"
              Title="Loggers">
-    <ContentPage.Content>
 
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding RefreshCommand}" />
+    </ContentPage.Behaviors>
+
+
+    <ContentPage.Content>
         <Grid>
             <xct:TabView
                 TabStripPlacement="Bottom"

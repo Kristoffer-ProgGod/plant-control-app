@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PlantControl.Models;
@@ -51,9 +52,13 @@ public partial class LoggerConfigViewModel : ObservableValidator
 
     partial void OnLoggerIdChanged(string value) => GetLogger();
 
+    /// <summary>
+    /// Initializes the view models properties from the remote logger config.
+    /// </summary>
     private void InitializeConfigFields()
     {
         if (_loggerConfig is null) return;
+        
         IsActive = _loggerConfig.Logging.Active;
         RestUrl = _loggerConfig.Logging.RestUrl;
         SocketUrl = _loggerConfig.Logging.SocketUrl;
@@ -65,7 +70,10 @@ public partial class LoggerConfigViewModel : ObservableValidator
         MaxHumidity = _loggerConfig.Air.MaxHumid;
     }
 
-    private async void GetLogger()
+    /// <summary>
+    /// Gets the selected logger from the server
+    /// </summary>
+    private async Task GetLogger()
     {
         var response = await _httpClient.GetFromJsonAsync<Logger>($"loggers/{LoggerId}");
         if (response is not null)
@@ -75,6 +83,10 @@ public partial class LoggerConfigViewModel : ObservableValidator
         }
     }
 
+    /// <summary>
+    /// Callback for when the logger config is received from the server.
+    /// </summary>
+    /// <param name="loggerConfig"></param>
     private void ReceiveConfig(Config loggerConfig)
     {
         if (loggerConfig.Logging.LoggerId == LoggerId)
@@ -84,10 +96,13 @@ public partial class LoggerConfigViewModel : ObservableValidator
         }
     }
 
-    private async void GetLoggerConfig() => await _signalRService.GetConfig(LoggerId);
+    private async Task GetLoggerConfig() => await _signalRService.GetConfig(LoggerId);
 
+    /// <summary>
+    /// Sends the updated config to the server.
+    /// </summary>
     [RelayCommand]
-    private async void SaveConfig()
+    private async Task SaveConfig()
     {
         Config newConfig = new()
         {
@@ -114,8 +129,12 @@ public partial class LoggerConfigViewModel : ObservableValidator
         await _signalRService.SetConfig(newConfig);
     }
 
+    /// <summary>
+    /// Calibrates a specific logger's sensor
+    /// </summary>
+    /// <param name="param"></param>
     [RelayCommand]
-    private async void Calibrate(string param)
+    private async Task Calibrate(string param)
     {
         if (Enum.TryParse<Calibration>(param, out var calibrationType))
         {

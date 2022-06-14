@@ -17,8 +17,11 @@
 
     <FlyoutItem Title="Loggers"
                 Icon="PlantListIcon.png">
-        <ShellContent Route="LoggersView"
-                      ContentTemplate="{DataTemplate v:LoggersView}" />
+        
+        <ShellContent Route="LoggersView">
+            <v:LoggersView></v:LoggersView>
+        </ShellContent>
+        
     </FlyoutItem>
     
     <FlyoutItem Title="Plants"

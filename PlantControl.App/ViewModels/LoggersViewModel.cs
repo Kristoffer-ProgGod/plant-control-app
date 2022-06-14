@@ -29,32 +29,52 @@ public partial class LoggersViewModel
     {
         _signalRService = signalRService;
         _httpClient = httpClient;
-        InitSignalR();
-        InitAllLoggers();
+        // Task.Run(() =>
+        // {
+        //     InitAllLoggers();
+        //     InitSignalR();
+        // });
     }
 
     public bool CanNavigate => SelectedLogger != null;
 
+    [RelayCommand]
+    public async Task Refresh()
+    {
+        await InitAllLoggers();
+        await InitSignalR();
+    }
+    /// <summary>
+    ///  Navigate to the logger config page, with the parameters of the selected logger
+    /// </summary>
     [RelayCommand(CanExecute = nameof(CanNavigate))]
-    private async void NavigateLoggerConfig()
+    private async Task NavigateLoggerConfig()
     {
         await Shell.Current.GoToAsync($"{nameof(LoggerConfigView)}?loggerId={SelectedLogger.Id}");
         // SelectedLogger = null;
     }
 
-    private async void InitAllLoggers()
+    /// <summary>
+    /// Get all loggers from the server
+    /// </summary>
+    private async Task InitAllLoggers()
     {
         AllLoggers.Clear();
-        var loggers = await _httpClient.GetFromJsonAsync<Logger[]>("loggers");
+        var loggers = await _httpClient.GetFromJsonAsync<Logger[]>("loggers").ConfigureAwait(false);
         loggers?.ForEach(logger => AllLoggers.Add(logger));
     }
 
+    
+    /// <summary>
+    /// Initialize the SignalR connection and get all online loggers
+    /// </summary>
     private async Task InitSignalR()
     {
         OnlineLoggers.Clear();
-        await _signalRService.StartConnection();
+        await _signalRService.StartConnection().ConfigureAwait(false);
 
-        (await _signalRService.GetOnlineLoggers()).ForEach(logger => OnlineLoggers.Add(logger));
+        var loggers = await _signalRService.GetOnlineLoggers().ConfigureAwait(false);
+        loggers.ForEach(logger => OnlineLoggers.Add(logger));
 
         _signalRService.OnNewLogger = logger => OnlineLoggers.Add(logger);
         _signalRService.OnRemoveLogger =
