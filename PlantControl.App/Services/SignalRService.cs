@@ -53,6 +53,11 @@ public class SignalRService
         await Connection.InvokeAsync("GetConfig", id);
     }
 
+    public async Task SetPairingId(string loggerId, string pairingId)
+    {
+        await Connection.InvokeAsync("SetPairingId", loggerId, pairingId);
+    }
+
     public async Task Calibrate(Calibration calibration, string loggerId)
     {
         await Connection.InvokeAsync("Calibrate", calibration.ToString(), loggerId);
