@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
+             xmlns:xForms="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              x:Class="PlantControlApp.Views.DataView"
              x:DataType="vm:DataViewModel"
              Title="Statistics">
@@ -11,12 +12,55 @@
         <xct:EventToCommandBehavior EventName="Appearing"
                                     Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
-    
+
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Maybe delete me? :D"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+            <xForms:SfChart x:Name="Chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <xForms:SfChart.Margin>
+                    <OnPlatform x:TypeArguments="Thickness" WinPhone="0,0,15,0" />
+                </xForms:SfChart.Margin>
+                <xForms:SfChart.Title>
+                    <xForms:ChartTitle Text="Weather Report" />
+                </xForms:SfChart.Title>
+                <xForms:SfChart.PrimaryAxis>
+                    <xForms:CategoryAxis LabelPlacement="BetweenTicks" LabelCreated="NumericalAxis_LabelCreated"/>
+                </xForms:SfChart.PrimaryAxis>
+                <xForms:SfChart.SecondaryAxis >
+                    <xForms:NumericalAxis>
+                        <xForms:NumericalAxis.LabelStyle>
+                            <xForms:ChartAxisLabelStyle LabelFormat="##.##°C  " />
+                        </xForms:NumericalAxis.LabelStyle>
+                        <xForms:NumericalAxis.StripLines>
+                            <xForms:NumericalStripLine Start="{Binding LoggerConfig.Air.MinTemp}" Width="10" Text="Low Temperature" FillColor="#f9d423">
+                                <xForms:NumericalStripLine.LabelStyle>
+                                    <xForms:ChartStripLineLabelStyle Font="12" />
+                                </xForms:NumericalStripLine.LabelStyle>
+                            </xForms:NumericalStripLine>
+                            <xForms:NumericalStripLine Start="12" Width="{Binding AcceptedTemp }" Text="Accepted Temperature"
+                                                      FillColor="#fc902a">
+                                <xForms:NumericalStripLine.LabelStyle>
+                                    <xForms:ChartStripLineLabelStyle Font="12" />
+                                </xForms:NumericalStripLine.LabelStyle>
+                            </xForms:NumericalStripLine>
+                            <xForms:NumericalStripLine Start="{Binding LoggerConfig.Air.MaxTemp}" Width="10" Text="High Temperature" FillColor="#ff512f">
+                                <xForms:NumericalStripLine.LabelStyle>
+                                    <xForms:ChartStripLineLabelStyle Font="12" />
+                                </xForms:NumericalStripLine.LabelStyle>
+                            </xForms:NumericalStripLine>
+                        </xForms:NumericalAxis.StripLines>
+                    </xForms:NumericalAxis>
+                </xForms:SfChart.SecondaryAxis>
+                <xForms:SfChart.Series>
+                    <xForms:LineSeries ItemsSource="{Binding Data}" StrokeWidth="2" Color="White"
+                                       XBindingPath="XValue" YBindingPath="YValue">
+                        <xForms:LineSeries.DataMarker>
+                            <xForms:ChartDataMarker x:Name="chartDataMarker" ShowLabel="false" ShowMarker="True"
+                                                    MarkerBorderColor="#ffffff" MarkerColor="#666666"
+                                                    MarkerHeight="10" MarkerWidth="10" />
+                        </xForms:LineSeries.DataMarker>
+                    </xForms:LineSeries>
+                </xForms:SfChart.Series>
+            </xForms:SfChart>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
