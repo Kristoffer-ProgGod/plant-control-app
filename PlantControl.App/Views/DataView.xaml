@@ -23,26 +23,30 @@
                     <xForms:ChartTitle Text="Weather Report" />
                 </xForms:SfChart.Title>
                 <xForms:SfChart.PrimaryAxis>
-                    <xForms:CategoryAxis LabelPlacement="BetweenTicks" LabelCreated="NumericalAxis_LabelCreated"/>
+                    <xForms:CategoryAxis LabelPlacement="BetweenTicks" LabelCreated="NumericalAxis_LabelCreated" />
                 </xForms:SfChart.PrimaryAxis>
-                <xForms:SfChart.SecondaryAxis >
-                    <xForms:NumericalAxis>
+                <xForms:SfChart.SecondaryAxis>
+                    <xForms:NumericalAxis Minimum="-10" Maximum="50">
                         <xForms:NumericalAxis.LabelStyle>
                             <xForms:ChartAxisLabelStyle LabelFormat="##.##°C  " />
                         </xForms:NumericalAxis.LabelStyle>
                         <xForms:NumericalAxis.StripLines>
-                            <xForms:NumericalStripLine Start="{Binding LoggerConfig.Air.MinTemp}" Width="10" Text="Low Temperature" FillColor="#f9d423">
+                            <xForms:NumericalStripLine Start="{Binding MinValueStart}" Width="{Binding MinValueWidth}"
+                                                       Text="Low Temperature" FillColor="DodgerBlue">
                                 <xForms:NumericalStripLine.LabelStyle>
                                     <xForms:ChartStripLineLabelStyle Font="12" />
                                 </xForms:NumericalStripLine.LabelStyle>
                             </xForms:NumericalStripLine>
-                            <xForms:NumericalStripLine Start="12" Width="{Binding AcceptedTemp }" Text="Accepted Temperature"
-                                                      FillColor="#fc902a">
+                            <xForms:NumericalStripLine Start="{Binding AcceptedValueStart}"
+                                                       Width="{Binding AcceptedValueWidth }"
+                                                       Text="Accepted Temperature"
+                                                       FillColor="ForestGreen">
                                 <xForms:NumericalStripLine.LabelStyle>
                                     <xForms:ChartStripLineLabelStyle Font="12" />
                                 </xForms:NumericalStripLine.LabelStyle>
                             </xForms:NumericalStripLine>
-                            <xForms:NumericalStripLine Start="{Binding LoggerConfig.Air.MaxTemp}" Width="10" Text="High Temperature" FillColor="#ff512f">
+                            <xForms:NumericalStripLine Start="{Binding MaxValueStart}" Width="{Binding MaxValueWidth}"
+                                                       Text="High Temperature" FillColor="#ff512f">
                                 <xForms:NumericalStripLine.LabelStyle>
                                     <xForms:ChartStripLineLabelStyle Font="12" />
                                 </xForms:NumericalStripLine.LabelStyle>

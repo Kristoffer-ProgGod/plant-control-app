@@ -18,9 +18,19 @@ public class DataViewModel
     public ObservableCollection<Log> Logs { get; set; } = new();
     public ObservableCollection<ChartDataPoint> Data { get; set; } = new();
 
-    public Config LoggerConfig { get; set; } = new() {Air = new Air() {MinTemp = 2, MaxTemp = 30}};
+    public Config LoggerConfig { get; set; } = new() {Air = new Air() {MinTemp = 10, MaxTemp = 30}};
 
-    public double AcceptedTemp => LoggerConfig.Air.MaxTemp - LoggerConfig.Air.MinTemp;
+    public double MinValue { get; set; } = 15;
+
+    public double MaxValue { get; set; } = 30;
+    
+    const int StripLineWidth = 25;
+    public double MinValueStart => MinValue - StripLineWidth;
+    public double MinValueWidth => StripLineWidth;
+    public double MaxValueStart => MaxValue;
+    public double MaxValueWidth => StripLineWidth;
+    public double AcceptedValueStart => MinValue;
+    public double AcceptedValueWidth => MaxValue - MinValue;
 
     public ICommand AppearingCommand { get; }
 
@@ -28,16 +38,16 @@ public class DataViewModel
     {
         _http = http;
         _signalRService = signalRService;
-        Logs.Add(new Log {Time = DateTimeOffset.Now, Temperature = 10.3});
-        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(1), Temperature = 10.6});
-        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(2), Temperature = 11});
-        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(3), Temperature = 15});
+        Logs.Add(new Log {Time = DateTimeOffset.Now, Temperature = 16.3});
+        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(1), Temperature = 16.6});
+        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(2), Temperature = 15});
+        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(3), Temperature = 20});
         Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(4), Temperature = 17});
         Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(5), Temperature = 20});
-        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(6), Temperature = 40});
-        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(7), Temperature = 40});
-        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(8), Temperature = 30});
-        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(9), Temperature = 15});
+        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(6), Temperature = 20});
+        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(7), Temperature = 23});
+        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(8), Temperature = 20});
+        Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(9), Temperature = 20});
         Logs.Add(new Log {Time = DateTimeOffset.Now.AddDays(10), Temperature = 20});
         
         foreach (var log in Logs)
