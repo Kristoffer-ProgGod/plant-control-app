@@ -76,16 +76,18 @@ public class SignalRService
         await Connection.InvokeAsync("GetConfig", id);
     }
 
-    /// <summary>
-    /// calibrate a specific logger's seonsor 
-    /// </summary>
-    /// <param name="calibration"></param>
-    /// <param name="loggerId"></param>
+
     public async Task SetPairingId(string loggerId, string pairingId)
     {
         await Connection.InvokeAsync("SetPairingId", loggerId, pairingId);
     }
 
+    
+    /// <summary>
+    /// calibrate a specific logger's seonsor 
+    /// </summary>
+    /// <param name="calibration"></param>
+    /// <param name="loggerId"></param>
     public async Task Calibrate(Calibration calibration, string loggerId)
     {
         await Connection.InvokeAsync("Calibrate", calibration.ToString(), loggerId);
