@@ -13,7 +13,12 @@ public partial class DataView : ContentPage
     public DataView()
     {
         InitializeComponent();
-        BindingContext = App.Current.Services.GetService<DataViewModel>();
+        var vm = App.Current.Services.GetService<DataViewModel>();
+
+        BindingContext = vm;
+        TemperatureView.BindingContext = vm.TemperatureChartData;
+        HumidityView.BindingContext = vm.HumidityChartData;
+        MoistureView.BindingContext = vm.MoistureChartData;
     }
     private void NumericalAxis_LabelCreated(object sender, Syncfusion.SfChart.XForms.ChartAxisLabelEventArgs e)
     {
@@ -21,6 +26,6 @@ public partial class DataView : ContentPage
             
         //Converting corresponding double value to data time value.
         DateTime date = (new DateTime(1970, 1, 1).AddMilliseconds(value));
-        e.LabelContent = String.Format("{0:g}", date);
+        e.LabelContent = String.Format("{0:d/M/yy}", date);
     }
 }

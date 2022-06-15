@@ -3,11 +3,11 @@
        xmlns:v="clr-namespace:PlantControlApp.Views"
        x:Class="PlantControlApp.Views.MainPage"
        IconImageSource="hamburger.png">
-    <FlyoutItem Title="Statistics"
-                Icon="GraphIcon.png">
-        <ShellContent Route="DataView"
-                      ContentTemplate="{DataTemplate v:DataView}" />
-    </FlyoutItem>
+    <!-- <FlyoutItem Title="Statistics" -->
+    <!--             Icon="GraphIcon.png"> -->
+    <!--     <ShellContent Route="DataView" -->
+    <!--                   ContentTemplate="{DataTemplate v:DataView}" /> -->
+    <!-- </FlyoutItem> -->
     
     <FlyoutItem Title="Pairings"
                 Icon="Pairing.png">
