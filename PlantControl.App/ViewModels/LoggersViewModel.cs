@@ -39,6 +39,7 @@ public partial class LoggersViewModel
         await InitAllLoggers();
         await InitSignalR();
     }
+
     /// <summary>
     ///  Navigate to the logger config page, with the parameters of the selected logger
     /// </summary>
@@ -46,7 +47,6 @@ public partial class LoggersViewModel
     private async Task NavigateLoggerConfig()
     {
         await Shell.Current.GoToAsync($"{nameof(LoggerConfigView)}?loggerId={SelectedLogger.Id}");
-        // SelectedLogger = null;
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public partial class LoggersViewModel
         loggers?.ForEach(logger => AllLoggers.Add(logger));
     }
 
-    
+
     /// <summary>
     /// Initialize the SignalR connection and get all online loggers
     /// </summary>
