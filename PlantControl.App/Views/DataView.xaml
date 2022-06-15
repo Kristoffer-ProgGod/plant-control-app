@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:PlantControlApp.ViewModels;assembly=PlantControl.App"
+             xmlns:xForms="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              x:Class="PlantControlApp.Views.DataView"
              x:DataType="vm:DataViewModel"
              Title="Statistics">
@@ -11,12 +12,123 @@
         <xct:EventToCommandBehavior EventName="Appearing"
                                     Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
-    
+
+
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="ChartTemplate">
+            <Grid x:Name="TemperatureGrid" BindingContext="{Binding Source={RelativeSource TemplatedParent}}">
+                <xForms:SfChart x:Name="Chart" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <xForms:SfChart.Margin>
+                        <OnPlatform x:TypeArguments="Thickness" />
+                    </xForms:SfChart.Margin>
+                    <xForms:SfChart.Title>
+                        <xForms:ChartTitle Text="Plant Statistics" />
+                    </xForms:SfChart.Title>
+                    <xForms:SfChart.PrimaryAxis>
+                        <xForms:CategoryAxis LabelPlacement="BetweenTicks"
+                                             LabelCreated="NumericalAxis_LabelCreated" />
+                    </xForms:SfChart.PrimaryAxis>
+                    <xForms:SfChart.SecondaryAxis>
+                        <xForms:NumericalAxis Minimum="{TemplateBinding  BindingContext.MinChartValue}" Maximum="{TemplateBinding  BindingContext.MaxChartValue}">
+                            <xForms:NumericalAxis.LabelStyle>
+                                <xForms:ChartAxisLabelStyle LabelFormat="{TemplateBinding  BindingContext.LabelFormat}" />
+                            </xForms:NumericalAxis.LabelStyle>
+                            <xForms:NumericalAxis.StripLines>
+                                <xForms:NumericalStripLine Start="{TemplateBinding  BindingContext.MinValueStart}"
+                                                           Width="{TemplateBinding BindingContext.MinValueWidth}"
+                                                           Text="Low" FillColor="DodgerBlue">
+                                    <xForms:NumericalStripLine.LabelStyle>
+                                        <xForms:ChartStripLineLabelStyle FontSize="12" />
+                                    </xForms:NumericalStripLine.LabelStyle>
+                                </xForms:NumericalStripLine>
+                                <xForms:NumericalStripLine Start="{TemplateBinding  BindingContext.AcceptedValueStart}"
+                                                           Width="{TemplateBinding  BindingContext.AcceptedValueWidth }"
+                                                           Text="Accepted"
+                                                           FillColor="ForestGreen">
+                                    <xForms:NumericalStripLine.LabelStyle>
+                                        <xForms:ChartStripLineLabelStyle FontSize="12" />
+                                    </xForms:NumericalStripLine.LabelStyle>
+                                </xForms:NumericalStripLine>
+                                <xForms:NumericalStripLine Start="{TemplateBinding  BindingContext.MaxValueStart}"
+                                                           Width="{TemplateBinding  BindingContext.MaxValueWidth}"
+                                                           Text="High" FillColor="#ff512f">
+                                    <xForms:NumericalStripLine.LabelStyle>
+                                        <xForms:ChartStripLineLabelStyle FontSize="12" />
+                                    </xForms:NumericalStripLine.LabelStyle>
+                                </xForms:NumericalStripLine>
+                            </xForms:NumericalAxis.StripLines>
+                        </xForms:NumericalAxis>
+                    </xForms:SfChart.SecondaryAxis>
+                    <xForms:SfChart.Series>
+                        <xForms:SplineSeries ItemsSource="{TemplateBinding  BindingContext.Data}" StrokeWidth="2"
+                                             Color="White"
+                                             XBindingPath="XValue" YBindingPath="YValue">
+                            <xForms:LineSeries.DataMarker>
+                                <xForms:ChartDataMarker x:Name="chartDataMarker"
+                                                        ShowLabel="{TemplateBinding BindingContext.ShowLabelAndMarker}"
+                                                        ShowMarker="{TemplateBinding BindingContext.ShowLabelAndMarker}"
+                                                        MarkerBorderColor="#ffffff" MarkerColor="#666666"
+                                                        MarkerHeight="5" MarkerWidth="5" />
+                            </xForms:LineSeries.DataMarker>
+                        </xForms:SplineSeries>
+                    </xForms:SfChart.Series>
+                </xForms:SfChart>
+            </Grid>
+        </ControlTemplate>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Maybe delete me? :D"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <xct:TabView
+                TabStripPlacement="Bottom"
+                TabStripBackgroundColor="DodgerBlue"
+                TabStripHeight="40"
+                TabIndicatorColor="Yellow"
+                TabContentBackgroundColor="Yellow">
+
+                <xct:TabViewItem
+                    Icon="triangle.png"
+                    Text="Temperature"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+
+
+                    <TemplatedView x:Name="TemperatureView" ControlTemplate="{StaticResource ChartTemplate}">
+
+                    </TemplatedView>
+
+
+                </xct:TabViewItem>
+
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="Humidity"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                    <xct:TabViewItem.Content>
+
+                        <TemplatedView x:Name="HumidityView" ControlTemplate="{StaticResource ChartTemplate}">
+
+                        </TemplatedView>
+                    </xct:TabViewItem.Content>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="Moisture"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                    <xct:TabViewItem.Content>
+
+                        <TemplatedView x:Name="MoistureView" ControlTemplate="{StaticResource ChartTemplate}">
+
+                        </TemplatedView>
+                    </xct:TabViewItem.Content>
+                </xct:TabViewItem>
+            </xct:TabView>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

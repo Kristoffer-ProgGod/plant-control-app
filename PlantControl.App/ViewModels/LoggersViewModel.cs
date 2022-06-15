@@ -29,11 +29,6 @@ public partial class LoggersViewModel
     {
         _signalRService = signalRService;
         _httpClient = httpClient;
-        // Task.Run(() =>
-        // {
-        //     InitAllLoggers();
-        //     InitSignalR();
-        // });
     }
 
     public bool CanNavigate => SelectedLogger != null;

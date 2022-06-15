@@ -1,18 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PlantControl.Models;
+using PlantControlApp.Views;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
+using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
 
 namespace PlantControlApp.ViewModels;
 
-internal class PlantViewModel : ObservableObject
+internal partial class PlantViewModel : ObservableObject
 {
     private readonly HttpClient _http;
 
@@ -28,6 +31,12 @@ internal class PlantViewModel : ObservableObject
     public ICommand GetPlantListCMD { get; set; }
 
     public ICommand SwitchViewCommand { get; set; }
+    
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(NavigatePlantLogsCommand))]
+    private Plant _selectedPlant;
+    
+    private bool IsPlantSelected => SelectedPlant != null;
 
     public PlantViewModel(HttpClient http)
     {
@@ -59,5 +68,11 @@ internal class PlantViewModel : ObservableObject
         }
 
         IsRefreshing = false;
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsPlantSelected))]
+    private async Task NavigatePlantLogs()
+    {
+        await Shell.Current.GoToAsync($"{nameof(DataView)}?plantId={SelectedPlant.Id}");
     }
 }
