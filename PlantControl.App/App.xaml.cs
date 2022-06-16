@@ -36,6 +36,7 @@ public partial class App : Application
     /// <returns></returns>
     private static IServiceProvider ConfigureServices()
     {
+        //Service Collection used to call instances of various services throughout the program.
         var services = new ServiceCollection();
         var httpClient = new HttpClient
         {

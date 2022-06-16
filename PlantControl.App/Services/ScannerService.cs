@@ -13,6 +13,12 @@ public class ScannerService
         _scanner = new MobileBarcodeScanner();
     }
 
+    /// <summary>
+    /// Scans a barcode
+    /// </summary>
+    /// <param name="topText">The prompt above where the image is taken on the screen</param>
+    /// <param name="bottomText">The prompt below where the image is taken on the screen</param>
+    /// <returns>String value of the scanned barcode</returns>
     public async Task<string> Scan(string topText = "", string bottomText = "")
     {
         await Permissions.RequestAsync<Permissions.Camera>();

@@ -48,6 +48,9 @@ public class CreatePlantViewModel : ObservableObject
         TakePhotoCommand = new AsyncCommand(TakePhoto);
     }
 
+    /// <summary>
+    /// The user takes a photo and inputs a name and then posts it to the database.
+    /// </summary>
     private async Task CreatePlant()
     {
         var plantContent = new StringContent(Name);
@@ -60,6 +63,9 @@ public class CreatePlantViewModel : ObservableObject
         await Shell.Current.GoToAsync("//PlantView");
     }
 
+    /// <summary>
+    /// Opens the camera to take a photo, then reads the photoFile into a stream which is converted to an image source.
+    /// </summary>
     private async Task TakePhoto()
     {
         _photoFile = await MediaPicker.CapturePhotoAsync();
@@ -68,11 +74,21 @@ public class CreatePlantViewModel : ObservableObject
         ImageSource = ImageSource.FromStream(() => photo);
     }
 
+    /// <summary>
+    /// Checks if the a photo has been taken and a name has been given to the plant.
+    /// Used to validate if the createPlantCommand can be called.
+    /// </summary>
+    /// <returns>True or false</returns>
     private bool CreatePlantCanExecute()
     {
         return _photoFile != null && !string.IsNullOrEmpty(Name);
     }
 
+    /// <summary>
+    /// Converts a FileResult to a ByteArrayContent
+    /// by reading it into a StreamContent which is then copied to a MemoryStream.
+    /// </summary>
+    /// <returns></returns>
     private async Task<ByteArrayContent> FileResultToByteArrayContent()
     {
         var stream = new StreamContent(await _photoFile.OpenReadAsync());
