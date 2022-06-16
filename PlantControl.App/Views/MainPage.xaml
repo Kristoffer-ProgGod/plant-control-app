@@ -16,7 +16,7 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Loggers"
-                Icon="PlantListIcon.png">
+                Icon="GraphIcon.png">
         
         <ShellContent Route="LoggersView">
             <v:LoggersView></v:LoggersView>
