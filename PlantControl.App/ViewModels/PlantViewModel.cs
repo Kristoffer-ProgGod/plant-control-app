@@ -21,6 +21,9 @@ internal partial class PlantViewModel : ObservableObject
 
     private bool _isRefreshing;
 
+    /// <summary>
+    /// Controls whether the view is refreshing.
+    /// </summary>
     public bool IsRefreshing
     {
         get => _isRefreshing;
@@ -46,6 +49,10 @@ internal partial class PlantViewModel : ObservableObject
         PlantList = new ObservableCollection<Plant>();
 
     }
+
+    /// <summary>
+    /// Gets a Json list of the plants in the database and adds them to the observable collection.
+    /// </summary>
     private async Task GetPlantList()
     {
         IsRefreshing = true;
@@ -70,6 +77,10 @@ internal partial class PlantViewModel : ObservableObject
         IsRefreshing = false;
     }
     
+    /// <summary>
+    /// If a plant is selected in the view the NavigatePlantLogsCMD is called.
+    /// Opens a view of the selected plants datalogs.
+    /// </summary>
     [RelayCommand(CanExecute = nameof(IsPlantSelected))]
     private async Task NavigatePlantLogs()
     {
