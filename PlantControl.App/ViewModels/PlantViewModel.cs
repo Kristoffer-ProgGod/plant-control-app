@@ -27,7 +27,7 @@ internal partial class PlantViewModel : ObservableObject
     public bool IsRefreshing
     {
         get => _isRefreshing;
-        set => SetProperty(ref _isRefreshing, value);
+        set => Device.BeginInvokeOnMainThread(() => SetProperty(ref _isRefreshing, value));
     }
     public ObservableCollection<Plant> PlantList { get; }
 
@@ -75,6 +75,7 @@ internal partial class PlantViewModel : ObservableObject
         }
 
         IsRefreshing = false;
+
     }
     
     /// <summary>
