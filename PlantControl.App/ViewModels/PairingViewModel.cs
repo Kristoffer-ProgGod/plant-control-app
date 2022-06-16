@@ -26,7 +26,7 @@ internal class PairingViewModel : ObservableObject
     public bool IsRefreshing
     {
         get => _isRefreshing;
-        set => SetProperty(ref _isRefreshing, value);
+        set => Device.BeginInvokeOnMainThread(() => SetProperty(ref _isRefreshing, value));
     }
 
     public ObservableCollection<Pairing> Pairings { get; }
