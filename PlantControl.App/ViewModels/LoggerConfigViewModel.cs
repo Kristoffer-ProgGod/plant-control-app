@@ -25,6 +25,7 @@ public partial class LoggerConfigViewModel : ObservableValidator
     [ObservableProperty] private Config _loggerConfig;
 
     [ObservableProperty] private string _loggerId;
+    [ObservableProperty] private string _pairingId;
 
     [ObservableProperty] private double _maxHumidity;
 
@@ -62,6 +63,8 @@ public partial class LoggerConfigViewModel : ObservableValidator
         IsActive = _loggerConfig.Logging.Active;
         RestUrl = _loggerConfig.Logging.RestUrl;
         SocketUrl = _loggerConfig.Logging.SocketUrl;
+        LoggerId = _loggerConfig.Logging.LoggerId;
+        PairingId = _loggerConfig.Logging.PairingId;
         SoilDry = _loggerConfig.Soil.Dry;
         SoilMoist = _loggerConfig.Soil.Moist;
         MinTemperature = _loggerConfig.Air.MinTemp;
@@ -118,7 +121,8 @@ public partial class LoggerConfigViewModel : ObservableValidator
                 Active = IsActive,
                 RestUrl = RestUrl,
                 SocketUrl = SocketUrl,
-                LoggerId = LoggerId
+                LoggerId = LoggerId,
+                PairingId = PairingId
             },
             Soil = new Soil
             {

@@ -8,6 +8,15 @@ namespace PlantControlApp.Converters
 {
     internal class PlantIdToImageSourceConverter : IValueConverter
     {
+
+        /// <summary>
+        /// Converts the object id of plants to image source url of the corresponding image.
+        /// </summary>
+        /// <param name="value">The value to convert</param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns>ImageSource url as a string</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             StringBuilder stringBuilder = new StringBuilder();
